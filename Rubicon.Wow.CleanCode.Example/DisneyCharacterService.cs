@@ -1,12 +1,7 @@
 ﻿using Rubicon.Wow.CleanCode.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rubicon.Wow.CleanCode.Example;
-public class DisneyCharacterService 
+public class DisneyCharacterService
 {
     private HttpClient client = new HttpClient();
     private List<DisneyCharacter> cumulatedCharacters = new();
@@ -52,7 +47,8 @@ public class DisneyCharacterService
         } while (requestPage.Page++ <= requestPage.TotalPages);
     }
 
-    public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostMovieAppeances(int count) {
+    public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostMovieAppeances(int count)
+    {
         // find top 5 disney characters with most movie appearances
         var t5cma = cumulatedCharacters.OrderByDescending(x => x.Films.Count).Take(count);
         int i = 1;
@@ -104,5 +100,5 @@ public class DisneyCharacterService
 
         return mostFavoredAllies;
     }
- 
+
 }

@@ -1,9 +1,7 @@
 ﻿
-using Rubicon.Wow.CleanCode.Example;
-using System.Runtime.CompilerServices;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
 using GenericHostConsoleApp;
+using Microsoft.Extensions.Configuration;
+using Rubicon.Wow.CleanCode.Example;
 
 var builder = Host.CreateDefaultBuilder(args);
 builder.ConfigureHostConfiguration(configurationBuilder =>
@@ -12,7 +10,6 @@ builder.ConfigureHostConfiguration(configurationBuilder =>
 });
 builder.ConfigureServices((hostBuilder, services) =>
 {
-
     new RegisterServices(hostBuilder.Configuration).ConfigureServices(services);
     services.AddHostedService<ConsoleHostedService>();
 });

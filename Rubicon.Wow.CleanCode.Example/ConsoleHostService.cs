@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Rubicon.Wow.CleanCode.Example;
 
 namespace GenericHostConsoleApp;
@@ -7,7 +6,7 @@ namespace GenericHostConsoleApp;
 internal sealed class ConsoleHostedService : IHostedService
 {
     private readonly ILogger _logger;
-    private readonly IHostApplicationLifetime _appLifetime;    
+    private readonly IHostApplicationLifetime _appLifetime;
 
     private Task? _applicationTask;
     private int? _exitCode;

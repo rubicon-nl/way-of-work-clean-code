@@ -1,15 +1,14 @@
-﻿using System.Collections.ObjectModel;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Rubicon.Wow.CleanCode.Data;
-public record DisneyCharacter (
+public record DisneyCharacter(
     List<string> Films,
     List<string> ShortFilms,
     List<string> TvShows,
     List<string> videoGames,
     List<string> ParkAttractions,
     List<string> Allies,
-    List<string> Enemies,        
+    List<string> Enemies,
     string Name,
     string ImageUrl,
     string Url
