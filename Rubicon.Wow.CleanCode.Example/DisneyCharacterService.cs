@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Rubicon.Wow.CleanCode.Example;
-public class DisneyCharacterService
+public class DisneyCharacterService 
 {
     private HttpClient client = new HttpClient();
     private List<DisneyCharacter> cumulatedCharacters = new();
@@ -104,5 +104,5 @@ public class DisneyCharacterService
 
         return mostFavoredAllies;
     }
-
+ 
 }

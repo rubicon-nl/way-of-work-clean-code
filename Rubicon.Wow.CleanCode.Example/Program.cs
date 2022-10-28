@@ -1,29 +1,23 @@
-﻿//var builder = Host.CreateDefaultBuilder(args);
-
-//builder.ConfigureServices(services => 
-//        services
-//            .AddHostedService<Worker>()
-//            .AddScoped<IMessageWriter, MessageWriter>());
-
-//var host = builder.Build();
-
-//host.Run();
-
-
+﻿
 using Rubicon.Wow.CleanCode.Example;
+using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using GenericHostConsoleApp;
 
-DisneyCharacterService service = new DisneyCharacterService();
-Console.WriteLine("Start fetching Disney characters");
-await service.FetchCharacters();
-Console.WriteLine();
+var builder = Host.CreateDefaultBuilder(args);
+builder.ConfigureHostConfiguration(configurationBuilder =>
+{
+    configurationBuilder.AddEnvironmentVariables();
+});
+builder.ConfigureServices((hostBuilder, services) =>
+{
 
-Console.WriteLine("Top 5 character movie appearances");
-service.GetTopDisneyCharactersWithMostMovieAppeances(5);
-Console.WriteLine();
+    new RegisterServices(hostBuilder.Configuration).ConfigureServices(services);
+    services.AddHostedService<ConsoleHostedService>();
+});
+var host = builder.Build();
 
-Console.WriteLine("Top 5 character game appearances");
-service.GetTopDisneyCharactersWithMostVideoGameAppeances(5);
-Console.WriteLine();
-Console.WriteLine("Create superhero squad of most favored allies");
-service.GetMostFavoriteAllies(5);
+await host.RunAsync();
+
 
