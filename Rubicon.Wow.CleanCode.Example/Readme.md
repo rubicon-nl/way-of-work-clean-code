@@ -10,3 +10,7 @@
 -> Data in eigen project. Voorkeur dat Enitities met records worden gedeinieerd omdat deze immutable zijn.
 -> Serialisation class gemaakt die verantwoordlijk is voor goede serializatie. Zorgt er voor dat camelcasing json goed geimporteerd wordt.
 -> Business logica naar een service class gebracht. Zodat dit de veranntwoordelijkheid is van de servcie.
+-> Self hosting service
+-> http client to factory pattern en decorator voor disposable interface
+-> Disney service via interface
+-> envtueel logging

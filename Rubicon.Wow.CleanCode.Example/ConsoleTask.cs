@@ -1,23 +1,26 @@
 ﻿namespace Rubicon.Wow.CleanCode.Example;
 internal class ConsoleTask : IConsoleTask
 {
-    public async Task ExecuteAsync()
+    private readonly IDisneyCharacterService _disneyCharacterService;
+    public ConsoleTask(IDisneyCharacterService disneyCharacterService)
     {
-
-        DisneyCharacterService service = new DisneyCharacterService();
+        this._disneyCharacterService = disneyCharacterService;
+    }
+    public async Task ExecuteAsync()
+    {        
         Console.WriteLine("Start fetching Disney characters");
-        await service.FetchCharacters();
+        await _disneyCharacterService.FetchCharacters();
         Console.WriteLine();
 
         Console.WriteLine("Top 5 character movie appearances");
-        service.GetTopDisneyCharactersWithMostMovieAppeances(5);
+        _disneyCharacterService.GetTopDisneyCharactersWithMostMovieAppeances(5);
         Console.WriteLine();
 
         Console.WriteLine("Top 5 character game appearances");
-        service.GetTopDisneyCharactersWithMostVideoGameAppeances(5);
+        _disneyCharacterService.GetTopDisneyCharactersWithMostVideoGameAppeances(5);
         Console.WriteLine();
         Console.WriteLine("Create superhero squad of most favored allies");
-        service.GetMostFavoriteAllies(5);
+        _disneyCharacterService.GetMostFavoriteAllies(5);
     }
 
 }

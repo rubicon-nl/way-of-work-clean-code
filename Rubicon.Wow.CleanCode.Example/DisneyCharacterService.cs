@@ -1,20 +1,24 @@
 ﻿using Rubicon.Wow.CleanCode.Data;
 
 namespace Rubicon.Wow.CleanCode.Example;
-public class DisneyCharacterService
+public class DisneyCharacterService : IDisneyCharacterService
 {
-    private HttpClient client = new HttpClient();
-    private List<DisneyCharacter> cumulatedCharacters = new();
-    private DisneyServiceRequestPage requestPage = new();
+    private readonly HttpClient _httpClient;
+    private List<DisneyCharacter> _cumulatedCharacters = new();
+    private DisneyServiceRequestPage _requestPage = new();
+
+    public DisneyCharacterService(IHttpClientDecorator httpClientDecorator)
+    {
+        _httpClient = httpClientDecorator.Create("Disney");
+    }
 
     public async Task FetchCharacters()
     {
         // Retrieve all disney characters
         do
         {
-
-            Console.WriteLine($"Retrieving page {requestPage.Page}");
-            var httpResponse = await client.GetAsync($"https://api.disneyapi.dev/characters?page={requestPage.Page}");
+            Console.WriteLine($"Retrieving page {_requestPage.Page}");
+            var httpResponse = await _httpClient.GetAsync($"characters?page={_requestPage.Page}");
 
             if (httpResponse.IsSuccessStatusCode)
             {
@@ -25,9 +29,9 @@ public class DisneyCharacterService
                     try
                     {
                         // Door serialize naar eigen class te verplaatsen is hier minder verantwoordelijkheid 
-                        var characters = await JsonSerilization.DeserializeAsync<DisneyCharacters>(contentStream);
-                        cumulatedCharacters.AddRange(characters.Data);
-                        requestPage.TotalPages = characters.TotalPages;
+                        var characters = await JsonSerialization.DeserializeAsync<DisneyCharacters>(contentStream);
+                        _cumulatedCharacters.AddRange(characters.Data);
+                        _requestPage.TotalPages = characters.TotalPages;
                     }
                     catch (JsonException)
                     {
@@ -44,13 +48,13 @@ public class DisneyCharacterService
                 Console.WriteLine("HTTP Response error");
             }
 
-        } while (requestPage.Page++ <= requestPage.TotalPages);
+        } while (_requestPage.Page++ <= _requestPage.TotalPages);
     }
 
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostMovieAppeances(int count)
     {
         // find top 5 disney characters with most movie appearances
-        var t5cma = cumulatedCharacters.OrderByDescending(x => x.Films.Count).Take(count);
+        var t5cma = _cumulatedCharacters.OrderByDescending(x => x.Films.Count).Take(count);
         int i = 1;
 
         foreach (var item in t5cma)
@@ -66,7 +70,7 @@ public class DisneyCharacterService
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostVideoGameAppeances(int count)
     {
         // find top 5 disney characters with most video game appearances
-        var t5cga = cumulatedCharacters.OrderByDescending(x => x.videoGames.Count).Take(count);
+        var t5cga = _cumulatedCharacters.OrderByDescending(x => x.videoGames.Count).Take(count);
         int i = 1;
 
         foreach (var item in t5cga)
@@ -82,7 +86,7 @@ public class DisneyCharacterService
     {
 
         // create a superhero squad of most favored allies
-        var mostFavoredAllies = cumulatedCharacters
+        var mostFavoredAllies = _cumulatedCharacters
             .SelectMany(x => x.Allies)
             .GroupBy(x => x)
             .Select(g => new { Name = g.Key, Count = g.Count() })
