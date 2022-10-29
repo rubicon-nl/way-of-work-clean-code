@@ -14,3 +14,13 @@
 -> http client to factory pattern en decorator voor disposable interface
 -> Disney service via interface
 -> envtueel logging
+
+----
+Test
+-> Unittest is alleen testen van een class
+-> Alleen getest dat ik true terug krijg
+-> Naamgeving unittest
+-> Setup => onafhankelijk voor andere testen?
+-> Veel te veel test data en moeilijk aan te passen aan nieuwe sitauties
+-> Geen goede opbouw test
+-> enz..

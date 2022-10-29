@@ -1,12 +1,12 @@
 ﻿namespace Rubicon.Wow.CleanCode.Example;
-internal class ConsoleTask : IConsoleTask
+public class ConsoleTask : IConsoleTask
 {
     private readonly IDisneyCharacterService _disneyCharacterService;
     public ConsoleTask(IDisneyCharacterService disneyCharacterService)
     {
         this._disneyCharacterService = disneyCharacterService;
     }
-    public async Task ExecuteAsync()
+    public async Task<bool> ExecuteAsync()
     {        
         Console.WriteLine("Start fetching Disney characters");
         await _disneyCharacterService.FetchCharacters();
@@ -21,6 +21,7 @@ internal class ConsoleTask : IConsoleTask
         Console.WriteLine();
         Console.WriteLine("Create superhero squad of most favored allies");
         _disneyCharacterService.GetMostFavoriteAllies(5);
+        return true;
     }
 
 }

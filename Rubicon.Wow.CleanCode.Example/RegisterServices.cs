@@ -17,7 +17,7 @@ public class RegisterServices
 
         services.AddHttpClient("Disney", httpClient =>
         {
-            httpClient.BaseAddress = new Uri("https://aapi.disneyapi.dev/"); // TODO: wrong api?
+            httpClient.BaseAddress = new Uri("https://api.disneyapi.dev/"); 
 
             /* other things here
             httpClient.DefaultRequestHeaders.Add(
