@@ -69,6 +69,8 @@ public class DisneyCharacterServiceTests
     {
         // Arrange
         Mock<IHttpClientDecorator> httpClientDecoratorMock = new Mock<IHttpClientDecorator>(MockBehavior.Strict);
+        Mock<HttpClient> httpMessageInvokerMock = new Mock<HttpClient>();
+        httpClientDecoratorMock.Setup(_ => _.Create(It.Is<string>(_ => _ == "Disney"))).Returns(httpMessageInvokerMock.Object);
         var mickeyMouse = CharacterBuilder.Create(1, "Mickey Mouse")
             .PlayedInMovies("Mickey Mouse", "THE THREE MUSKETEERS", "Fanatasia 200", "World of Illusion").Build();
         var donaldDuck = CharacterBuilder.Create(1, "Donald Duck")
