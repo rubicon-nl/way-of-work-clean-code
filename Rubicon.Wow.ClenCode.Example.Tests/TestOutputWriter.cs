@@ -12,5 +12,6 @@ public class TestOutputWriter : IOutputWriter
     }
 
     public void WriteLine(string message, params string[] parameters) => _output.WriteLine(message, parameters);
+    public void WriteLine(string message) => _output.WriteLine(message);
     public void WriteLine() => _output.WriteLine("--EMPTY --");
 }

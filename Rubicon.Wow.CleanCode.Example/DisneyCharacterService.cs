@@ -16,6 +16,12 @@ public class DisneyCharacterService : IDisneyCharacterService
         _httpClient = httpClientDecorator.Create("Disney");
         _outputWriter = outputWriter;
     }
+        
+    public void SetCharacterList(IEnumerable<DisneyCharacter> characters)
+    {
+        _cumulatedCharacters.Clear();
+        _cumulatedCharacters.AddRange(characters);
+    }
 
     public async Task<bool> FetchCharactersAsync()
     {
@@ -56,7 +62,7 @@ public class DisneyCharacterService : IDisneyCharacterService
                 return false;
             }
 
-        } while (_requestPage.Page++ <= _requestPage.TotalPages);
+        } while (_requestPage.Page++ < _requestPage.TotalPages);
         return true;
     }
 
@@ -79,12 +85,12 @@ public class DisneyCharacterService : IDisneyCharacterService
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostVideoGameAppeances(int count)
     {
         // find top 5 disney characters with most video game appearances
-        var t5cga = _cumulatedCharacters.OrderByDescending(x => x.videoGames.Count).Take(count);
+        var t5cga = _cumulatedCharacters.OrderByDescending(x => x.VideoGames.Count).Take(count);
         int i = 1;
 
         foreach (var item in t5cga)
         {
-            _outputWriter.WriteLine($"{i}. {item.Name} ({item.videoGames.Count})");
+            _outputWriter.WriteLine($"{i}. {item.Name} ({item.VideoGames.Count})");
             i++;
         }
 

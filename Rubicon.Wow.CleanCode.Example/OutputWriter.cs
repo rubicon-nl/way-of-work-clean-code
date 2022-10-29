@@ -6,6 +6,11 @@ public class OutputWriter : IOutputWriter
         Console.WriteLine(message, parameters);
     }
 
+    public void WriteLine(string message)
+    {
+        Console.WriteLine(message);
+    }
+
     public void WriteLine() => Console.WriteLine();
 }
 
