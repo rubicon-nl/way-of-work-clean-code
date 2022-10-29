@@ -1,4 +1,5 @@
 ﻿using Rubicon.Wow.CleanCode.Data;
+using System.Collections.ObjectModel;
 
 namespace Rubicon.Wow.CleanCode.Example;
 public class DisneyCharacterService : IDisneyCharacterService
@@ -6,18 +7,22 @@ public class DisneyCharacterService : IDisneyCharacterService
     private readonly HttpClient _httpClient;
     private List<DisneyCharacter> _cumulatedCharacters = new();
     private DisneyServiceRequestPage _requestPage = new();
+    private readonly IOutputWriter _outputWriter;
 
-    public DisneyCharacterService(IHttpClientDecorator httpClientDecorator)
+    public ReadOnlyCollection<DisneyCharacter> DisneyCharacters => new ReadOnlyCollection<DisneyCharacter>(_cumulatedCharacters);
+
+    public DisneyCharacterService(IHttpClientDecorator httpClientDecorator, IOutputWriter outputWriter)
     {
         _httpClient = httpClientDecorator.Create("Disney");
+        _outputWriter = outputWriter;
     }
 
-    public async Task FetchCharacters()
+    public async Task<bool> FetchCharactersAsync()
     {
         // Retrieve all disney characters
         do
         {
-            Console.WriteLine($"Retrieving page {_requestPage.Page}");
+            _outputWriter.WriteLine($"Retrieving page {_requestPage.Page}");
             var httpResponse = await _httpClient.GetAsync($"characters?page={_requestPage.Page}");
 
             if (httpResponse.IsSuccessStatusCode)
@@ -35,20 +40,24 @@ public class DisneyCharacterService : IDisneyCharacterService
                     }
                     catch (JsonException)
                     {
-                        Console.WriteLine("Invalid JSON.");
+                        _outputWriter.WriteLine("Invalid JSON.");
+                        return false;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("HTTP Response was invalid and cannot be deserialised.");
+                    _outputWriter.WriteLine("HTTP Response was invalid and cannot be deserialised.");
+                    return false;
                 }
             }
             else
             {
-                Console.WriteLine("HTTP Response error");
+                _outputWriter.WriteLine("HTTP Response error");
+                return false;
             }
 
         } while (_requestPage.Page++ <= _requestPage.TotalPages);
+        return true;
     }
 
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostMovieAppeances(int count)
@@ -59,7 +68,7 @@ public class DisneyCharacterService : IDisneyCharacterService
 
         foreach (var item in t5cma)
         {
-            Console.WriteLine($"{i}. {item.Name} ({item.Films.Count})");
+            _outputWriter.WriteLine($"{i}. {item.Name} ({item.Films.Count})");
             i++;
         }
 
@@ -75,7 +84,7 @@ public class DisneyCharacterService : IDisneyCharacterService
 
         foreach (var item in t5cga)
         {
-            Console.WriteLine($"{i}. {item.Name} ({item.videoGames.Count})");
+            _outputWriter.WriteLine($"{i}. {item.Name} ({item.videoGames.Count})");
             i++;
         }
 
@@ -98,7 +107,7 @@ public class DisneyCharacterService : IDisneyCharacterService
         {
             foreach (var item in mostFavoredAllies)
             {
-                Console.WriteLine($"{item}");
+                _outputWriter.WriteLine($"{item}");
             }
         }
 

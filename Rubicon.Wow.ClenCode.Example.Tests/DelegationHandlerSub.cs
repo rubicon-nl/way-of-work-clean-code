@@ -3,7 +3,8 @@ using System.Net.Http;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-namespace Rubicon.Wow.ClenCode.Example.Tests;
+
+namespace Rubicon.Wow.CleanCode.Example.Tests;
 
 public class DelegatingHandlerStub : DelegatingHandler
 {

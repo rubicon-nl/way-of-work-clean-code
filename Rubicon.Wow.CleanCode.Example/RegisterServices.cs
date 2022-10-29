@@ -26,6 +26,7 @@ public class RegisterServices
         }).AddPolicyHandler(HttpClientPolicy.GetRetryPolicy()); ;
 
         services.AddSingleton<IConsoleTask, ConsoleTask>();
+        services.AddSingleton<IOutputWriter, OutputWriter>();
         services.AddSingleton<IHttpClientDecorator, HttpClientDecorator>();
         services.AddTransient<IDisneyCharacterService, DisneyCharacterService>();
     }
