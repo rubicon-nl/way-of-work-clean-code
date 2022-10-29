@@ -62,6 +62,7 @@ public class DisneyCharacterServiceTests
         _outputWriter.WriteLine(mickeyMouse.ToString());
         _outputWriter.WriteLine(service.DisneyCharacters.First().ToString());
         Assert.Contains(service.DisneyCharacters, dchar => dchar == mickeyMouse);
+
     }
 
     [Fact]
@@ -80,8 +81,6 @@ public class DisneyCharacterServiceTests
 
         var retrievedChars = new DisneyCharacter[] { mickeyMouse, goofy, donaldDuck };
         
-        
-        // Test faalt waarom?
         DisneyCharacterService service = new DisneyCharacterService(httpClientDecoratorMock.Object, _outputWriter);
         service.SetCharacterList(retrievedChars);
 
@@ -90,6 +89,9 @@ public class DisneyCharacterServiceTests
 
         // Assert
         top2.Should().Equal(new List<DisneyCharacter> { mickeyMouse, donaldDuck });
+
+        // Verify
+        httpClientDecoratorMock.VerifyAll();
 
     }
 
