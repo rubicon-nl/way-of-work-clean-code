@@ -2,6 +2,8 @@
 using Microsoft.VisualBasic;
 using Moq;
 using Rubicon.Wow.CleanCode.Data;
+using Rubicon.Wow.CleanCode.Example.Tests.TestData;
+using Rubicon.Wow.CleanCode.Example.Tests.TestSupport;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,21 +25,6 @@ public class DisneyCharacterServiceTests
     {        
         _outputWriter = new TestOutputWriter(output);
     }
-    
-    public IHttpClientFactory GetHttpClientFactory(string httpResponseContent)
-    {
-        var clientHandlerStub = new DelegatingHandlerStub();
-        clientHandlerStub.ExpectedResult = httpResponseContent;
-        clientHandlerStub.ContentType = "application/json";
-
-        var client = new HttpClient(clientHandlerStub);
-        client.BaseAddress = new Uri("https://api.disneyapi.dev/");
-        Mock<IHttpClientFactory> mockFactory = new();
-        mockFactory.Setup(_ => _.CreateClient(It.IsAny<string>())).Returns(client);
-        IHttpClientFactory factory = mockFactory.Object;
-
-        return factory;
-    }
 
     [Fact]
     public async Task FetchCharacters_ShouldRetrieveCharacters()
@@ -51,7 +38,7 @@ public class DisneyCharacterServiceTests
         DisneyCharacters characters = new DisneyCharacters { Count = 2, TotalPages = 1, NextPage = null, Data = (new DisneyCharacter[] { mickeyMouse, donaldDuck }).ToList() };
         var httpResponseContent = await JsonSerialization.SerializeAsync(characters);
 
-        HttpClientDecorator httpClientDecorator = new HttpClientDecorator(GetHttpClientFactory(httpResponseContent));
+        HttpClientDecorator httpClientDecorator = new HttpClientDecorator(HttpFactoryStub.GetHttpClientFactory(httpResponseContent));
         DisneyCharacterService service = new DisneyCharacterService(httpClientDecorator, _outputWriter);
 
         // Act

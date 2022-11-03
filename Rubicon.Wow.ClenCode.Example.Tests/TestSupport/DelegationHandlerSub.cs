@@ -4,12 +4,12 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Rubicon.Wow.CleanCode.Example.Tests;
+namespace Rubicon.Wow.CleanCode.Example.Tests.TestSupport;
 
 public class DelegatingHandlerStub : DelegatingHandler
 {
     private Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> _handlerFunc;
-        
+
     public string ExpectedResult { get; set; }
     public string ContentType { get; set; }
 
@@ -17,7 +17,7 @@ public class DelegatingHandlerStub : DelegatingHandler
     {
         HttpResponseMessage msg = new HttpResponseMessage(HttpStatusCode.OK);
         _handlerFunc = (request, cancellationToken) => Task.FromResult(msg);
-        msg.Content = new StringContent(ExpectedResult, System.Text.UTF8Encoding.UTF8, ContentType);
+        msg.Content = new StringContent(ExpectedResult, System.Text.Encoding.UTF8, ContentType);
 
         return _handlerFunc(request, cancellationToken);
     }

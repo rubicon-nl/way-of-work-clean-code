@@ -1,7 +1,6 @@
-﻿using Rubicon.Wow.CleanCode.Example;
-using Xunit.Abstractions;
+﻿using Xunit.Abstractions;
 
-namespace Rubicon.Wow.CleanCode.Example.Tests;
+namespace Rubicon.Wow.CleanCode.Example.Tests.TestSupport;
 public class TestOutputWriter : IOutputWriter
 {
     private readonly ITestOutputHelper _output;

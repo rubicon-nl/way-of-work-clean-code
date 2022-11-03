@@ -41,7 +41,8 @@ public class DisneyCharacterService : IDisneyCharacterService
                     {
                         // Door serialize naar eigen class te verplaatsen is hier minder verantwoordelijkheid 
                         var characters = await JsonSerialization.DeserializeAsync<DisneyCharacters>(contentStream);
-                        _cumulatedCharacters.AddRange(characters.Data);
+
+                        _cumulatedCharacters.AddRange(characters.Data!);
                         _requestPage.TotalPages = characters.TotalPages;
                     }
                     catch (JsonException)

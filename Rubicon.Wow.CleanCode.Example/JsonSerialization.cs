@@ -1,4 +1,4 @@
-﻿public class JsonSerialization
+﻿public static class JsonSerialization
 {
     private static JsonSerializerOptions _options = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true };
 
