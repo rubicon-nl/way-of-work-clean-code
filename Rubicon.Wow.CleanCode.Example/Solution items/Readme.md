@@ -5,7 +5,7 @@
 
 2. Dependency Injection
 2.B Self hosting
-3.C Interfaces maken
+2.C Interfaces maken
 
 3. Unit testen
 3b. Repository pattern
