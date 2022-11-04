@@ -10,24 +10,24 @@ Jeffrey
 2.C Interfaces maken
 
 /* TODO */
-4
-4A HTTP error (change url to non-existing url) causes hanging in a while loop. Introduce error throwing.
-4B Guard pattern, reduce nested loops and ifs.
-4C Variable naming: t5cma -> top5CharacterMovieAppearances
-4D Comments lie -> // find top 5 disney characters with most movie appearances
+3
+3A HTTP error (change url to non-existing url) causes hanging in a while loop. Introduce error throwing.
+3B Guard pattern, reduce nested loops and ifs.
+3C Variable naming: t5cma -> top5CharacterMovieAppearances
+3D Comments lie -> // find top 5 disney characters with most movie appearances
 
 Rene
 --------------
-Polly
-Presenter
-Logging
-Fluent Validation
+4 Polly
+5 Presenter
+6 Logging
+7 Fluent Validation
 
 Dieder
 --------------
-3. Unit testen
-3b. Repository pattern
-3c. Fluent Assertions
+8. Unit testen
+8b. Repository pattern
+8c. Fluent Assertions
 
 
 
