@@ -1,15 +1,13 @@
 ﻿##Script
 
+Jeffrey
+--------------
 1. Seperation of concerns: Structure program into classes
 1b. Data in eigen project
 
 2. Dependency Injection
 2.B Self hosting
 2.C Interfaces maken
-
-3. Unit testen
-3b. Repository pattern
-3c. Fluent Assertions
 
 /* TODO */
 4
@@ -18,9 +16,20 @@
 4C Variable naming: t5cma -> top5CharacterMovieAppearances
 4D Comments lie -> // find top 5 disney characters with most movie appearances
 
-/* TODO */
+Rene
+--------------
 Polly
+Presenter
+Logging
 Fluent Validation
+
+Dieder
+--------------
+3. Unit testen
+3b. Repository pattern
+3c. Fluent Assertions
+
+
 
 
 -> Data in eigen project. Voorkeur dat Enitities met records worden gedeinieerd omdat deze immutable zijn.
