@@ -1,11 +1,8 @@
 ﻿using FluentAssertions;
-using Microsoft.VisualBasic;
 using Moq;
 using Rubicon.Wow.CleanCode.Data;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -40,7 +37,7 @@ public class DisneyCharacterServiceTests
     }
 
     [Fact]
-    public async Task FetchCharacters_ShouldRetrieveCharacters()
+    public async Task FetchCharacters_ShouldRetrieveCharacters_AndReturnAListOfCharacters()
     {
         // Arrange
         var mickeyMouse = CharacterBuilder.Create(1, "Mickey Mouse")
@@ -48,7 +45,7 @@ public class DisneyCharacterServiceTests
         var donaldDuck = CharacterBuilder.Create(1, "Donald Duck")
             .PlayedInMovies("Donald and Pluto ", "Self Control", "World of Illusion").Build();
 
-        DisneyCharacters characters = new DisneyCharacters { Count = 2, TotalPages = 1, NextPage = null, Data = (new DisneyCharacter[] { mickeyMouse, donaldDuck }).ToList() };
+        DisneyCharacters characters = new DisneyCharacters { Count = 2, TotalPages = 1, NextPage = null, Data = (new DisneyCharacter[] { mickeyMouse, donaldDuck }) };
         var httpResponseContent = await JsonSerialization.SerializeAsync(characters);
 
         HttpClientDecorator httpClientDecorator = new HttpClientDecorator(GetHttpClientFactory(httpResponseContent));
@@ -68,7 +65,7 @@ public class DisneyCharacterServiceTests
     public async Task GetTopDisneyCharactersWithMostMovieAppeance_OnlyTwoOfThree_ShouldReturnAsTopMost()
     {
         // Arrange
-        Mock<IHttpClientDecorator> httpClientDecoratorMock = new Mock<IHttpClientDecorator>(MockBehavior.Strict);
+        Mock<IHttpClientDecorator> httpClientDecoratorMock = new Mock<IHttpClientDecorator>();
         var mickeyMouse = CharacterBuilder.Create(1, "Mickey Mouse")
             .PlayedInMovies("Mickey Mouse", "THE THREE MUSKETEERS", "Fanatasia 200", "World of Illusion").Build();
         var donaldDuck = CharacterBuilder.Create(1, "Donald Duck")
@@ -77,10 +74,9 @@ public class DisneyCharacterServiceTests
             .PlayedInMovies("World of Illusion").Build();
 
         var retrievedChars = new DisneyCharacter[] { mickeyMouse, goofy, donaldDuck };
-        
-        
-        // Test faalt waarom?
         DisneyCharacterService service = new DisneyCharacterService(httpClientDecoratorMock.Object, _outputWriter);
+
+        // Test faalt waarom?
         service.SetCharacterList(retrievedChars);
 
         // Act
@@ -92,13 +88,13 @@ public class DisneyCharacterServiceTests
     }
 
     [Fact]
-    public void GetTopDisneyCharactersWithMostMovieAppeances()
+    public void GetTopDisneyCharacters_WithTwoMostMovieAppeances_ShouldReturnTwoCharacters()
     {
         //TODO:
     }
 
     [Fact]
-    public void GetTopDisneyCharactersWithMostVideoGameAppeances()
+    public void GetTopDisneyCharacters_WithTwoMostVideoGameAppeances_ShouldReturnTwoCharacters()
     {
         //TODO:
     }

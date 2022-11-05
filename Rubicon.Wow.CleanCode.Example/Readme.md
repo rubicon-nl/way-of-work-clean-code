@@ -17,10 +17,20 @@
 
 ----
 Test
--> Unittest is alleen testen van een class
--> Alleen getest dat ik true terug krijg
--> Naamgeving unittest
--> Setup => onafhankelijk voor andere testen?
--> Veel te veel test data en moeilijk aan te passen aan nieuwe sitauties
--> Geen goede opbouw test
+8
+
+:) Naamgeving unittest is aangepast
+ -> ExecuteAsync_ShouldCallProcessingFunctions_AndReturnsTrue(
+:) Gebruik van mocks gemaakt
+:) Opbouw Test aangepast
+
+Test support
+:) Unittest is alleen testen van een class
+:) Veel te veel test data en moeilijk aan te passen aan nieuwe situaties -> zie character builder en gebruik
+:) Setup/Arrange => onafhankelijk/Isolated test voor andere testen? (HttpClient, HttpClientFactory, DisneyService). 
+
+:( Test lang niet of alles is goed gegaan
+:( Test ziet dat er is mis is met de service: laden en uitvoeren. Zijn dat niet twee taken?
+
+-> Test bevat teveel verantwoordelijkheden
 -> enz..

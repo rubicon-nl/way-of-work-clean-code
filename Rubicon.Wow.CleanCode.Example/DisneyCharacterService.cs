@@ -16,12 +16,6 @@ public class DisneyCharacterService : IDisneyCharacterService
         _httpClient = httpClientDecorator.Create("Disney");
         _outputWriter = outputWriter;
     }
-        
-    public void SetCharacterList(IEnumerable<DisneyCharacter> characters)
-    {
-        _cumulatedCharacters.Clear();
-        _cumulatedCharacters.AddRange(characters);
-    }
 
     public async Task<bool> FetchCharactersAsync()
     {
@@ -41,7 +35,7 @@ public class DisneyCharacterService : IDisneyCharacterService
                     {
                         // Door serialize naar eigen class te verplaatsen is hier minder verantwoordelijkheid 
                         var characters = await JsonSerialization.DeserializeAsync<DisneyCharacters>(contentStream);
-                        _cumulatedCharacters.AddRange(characters.Data);
+                        _cumulatedCharacters.AddRange(characters!.Data.ToList());
                         _requestPage.TotalPages = characters.TotalPages;
                     }
                     catch (JsonException)
@@ -62,14 +56,14 @@ public class DisneyCharacterService : IDisneyCharacterService
                 return false;
             }
 
-        } while (_requestPage.Page++ < _requestPage.TotalPages);
+        } while (_requestPage.Page++ <= _requestPage.TotalPages);
         return true;
     }
 
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostMovieAppeances(int count)
     {
         // find top 5 disney characters with most movie appearances
-        var t5cma = _cumulatedCharacters.OrderByDescending(x => x.Films.Count).Take(count);
+        var t5cma = _cumulatedCharacters.OrderByDescending(x => x.Films.ToList().Count).Take(count);
         int i = 1;
 
         foreach (var item in t5cma)
@@ -85,7 +79,7 @@ public class DisneyCharacterService : IDisneyCharacterService
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostVideoGameAppeances(int count)
     {
         // find top 5 disney characters with most video game appearances
-        var t5cga = _cumulatedCharacters.OrderByDescending(x => x.VideoGames.Count).Take(count);
+        var t5cga = _cumulatedCharacters.OrderByDescending(x => x.VideoGames.ToList().Count).Take(count);
         int i = 1;
 
         foreach (var item in t5cga)
@@ -120,4 +114,6 @@ public class DisneyCharacterService : IDisneyCharacterService
         return mostFavoredAllies;
     }
 
+    // Wel jammer want voor een unittest
+    public void SetCharacterList(DisneyCharacter[] retrievedChars) => throw new NotImplementedException();
 }
