@@ -23,7 +23,7 @@ Test
 -> Naamgeving unittest
 -> Setup/Arrange => onafhankelijk/Isolated test voor andere testen? (HttpClient, HttpClientFactory, DisneyService). 
 -> Geen gebruik gemaakt van mocks 
--> Test bevat teveel verantwoordleijkheden
+-> Test bevat teveel verantwoordelijkheden
 -> Veel te veel test data en moeilijk aan te passen aan nieuwe situaties
 -> Geen goede opbouw test
 -> Test geeft aan dat het goed gaat, maar test in feite alleen maar dat er geen unhandled exceptie optreden
