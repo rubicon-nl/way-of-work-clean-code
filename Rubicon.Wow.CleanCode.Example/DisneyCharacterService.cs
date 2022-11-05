@@ -30,7 +30,7 @@ public class DisneyCharacterService : IDisneyCharacterService
                     {
                         // Door serialize naar eigen class te verplaatsen is hier minder verantwoordelijkheid 
                         var characters = await JsonSerialization.DeserializeAsync<DisneyCharacters>(contentStream);
-                        _cumulatedCharacters.AddRange(characters.Data);
+                        _cumulatedCharacters.AddRange(characters!.Data.ToList());
                         _requestPage.TotalPages = characters.TotalPages;
                     }
                     catch (JsonException)
@@ -54,12 +54,12 @@ public class DisneyCharacterService : IDisneyCharacterService
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostMovieAppeances(int count)
     {
         // find top 5 disney characters with most movie appearances
-        var t5cma = _cumulatedCharacters.OrderByDescending(x => x.Films.Count).Take(count);
+        var t5cma = _cumulatedCharacters.OrderByDescending(x => x.Films.ToList().Count).Take(count);
         int i = 1;
 
         foreach (var item in t5cma)
         {
-            Console.WriteLine($"{i}. {item.Name} ({item.Films.Count})");
+            Console.WriteLine($"{i}. {item.Name} ({item.Films.ToList().Count})");
             i++;
         }
 
@@ -70,12 +70,12 @@ public class DisneyCharacterService : IDisneyCharacterService
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostVideoGameAppeances(int count)
     {
         // find top 5 disney characters with most video game appearances
-        var t5cga = _cumulatedCharacters.OrderByDescending(x => x.videoGames.Count).Take(count);
+        var t5cga = _cumulatedCharacters.OrderByDescending(x => x.VideoGames.ToList().Count).Take(count);
         int i = 1;
 
         foreach (var item in t5cga)
         {
-            Console.WriteLine($"{i}. {item.Name} ({item.videoGames.Count})");
+            Console.WriteLine($"{i}. {item.Name} ({item.VideoGames.ToList().Count})");
             i++;
         }
 
