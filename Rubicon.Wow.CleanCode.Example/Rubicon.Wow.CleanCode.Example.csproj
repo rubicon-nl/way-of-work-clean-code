@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Rubicon.Wow.CleanCode.Data\Rubicon.Wow.CleanCode.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\" />
+  </ItemGroup>
+
 </Project>

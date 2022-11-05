@@ -17,10 +17,23 @@
 
 ----
 Test
--> Unittest is alleen testen van een class
--> Alleen getest dat ik true terug krijg
--> Naamgeving unittest
--> Setup => onafhankelijk voor andere testen?
--> Veel te veel test data en moeilijk aan te passen aan nieuwe sitauties
--> Geen goede opbouw test
+8
+
+Mock
+:) Naamgeving unittest is aangepast
+ -> ExecuteAsync_ShouldCallProcessingFunctions_AndReturnsTrue(
+:) Gebruik van mocks gemaakt
+:) Opbouw Test aangepast
+
+Test support
+:) Unittest is alleen testen van een class
+:) Veel te veel test data en moeilijk aan te passen aan nieuwe situaties -> zie character builder en gebruik
+:) Setup/Arrange => onafhankelijk/Isolated test voor andere testen? (HttpClient, HttpClientFactory, DisneyService). 
+:) responsibilty aanpassen service door ophalen en uitvoeren data te scheiden.
+
+:( Test lang niet of alles is goed gegaan
+Moeten we niet FluentAssertions of een ander assertion library gebruiken om alles goed door te testen?
+En moeten we niet verifieren wat welke mock functies geraakt worden en of ze wel geraakt worden?
+
+-> Test bevat teveel verantwoordelijkheden
 -> enz..

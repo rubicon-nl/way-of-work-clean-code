@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Net.Http.Headers;
+using Rubicon.Wow.CleanCode.Example.Infrastructure;
 
-namespace Rubicon.Wow.CleanCode.Example;
+namespace Rubicon.Wow.CleanCode.Example.Middleware;
 public class RegisterServices
 {
     public IConfiguration Configuration { get; }
@@ -17,7 +17,7 @@ public class RegisterServices
 
         services.AddHttpClient("Disney", httpClient =>
         {
-            httpClient.BaseAddress = new Uri("https://api.disneyapi.dev/"); 
+            httpClient.BaseAddress = new Uri("https://api.disneyapi.dev/");
 
             /* other things here
             httpClient.DefaultRequestHeaders.Add(
@@ -28,6 +28,6 @@ public class RegisterServices
         services.AddSingleton<IConsoleTask, ConsoleTask>();
         services.AddSingleton<IOutputWriter, OutputWriter>();
         services.AddSingleton<IHttpClientDecorator, HttpClientDecorator>();
-        services.AddTransient<IDisneyCharacterService, DisneyCharacterService>();
+        services.AddTransient<IDisneyCharacterRepository, DisneyCharacterRepository>();
     }
 }

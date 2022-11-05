@@ -1,8 +1,9 @@
-﻿using Polly.Extensions.Http;
-using Polly;
+﻿using Polly;
 using Polly.Contrib.WaitAndRetry;
+using Polly.Extensions.Http;
 
-namespace Rubicon.Wow.CleanCode.Example;
+namespace Rubicon.Wow.CleanCode.Example.Infrastructure;
+
 public static class HttpClientPolicy
 {
     // retry policy with back of delay. De tijd tussen requests wordt bij elke poging exponentieel langer, startend met 1 seconde en 5 pogingen

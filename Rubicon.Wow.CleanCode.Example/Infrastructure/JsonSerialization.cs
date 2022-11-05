@@ -9,7 +9,7 @@
             _options);
     }
 
-    public static async Task<string> SerializeAsync<T>(T data) 
+    public static async Task<string> SerializeAsync<T>(T data)
     {
         MemoryStream stream = new MemoryStream();
         await JsonSerializer.SerializeAsync<T>(

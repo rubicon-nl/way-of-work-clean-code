@@ -1,10 +1,19 @@
 ﻿using Moq;
+using Rubicon.Wow.CleanCode.Data;
+using Rubicon.Wow.CleanCode.Example.Infrastructure;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Rubicon.Wow.CleanCode.Example.Tests.TestSupport;
 internal static class HttpFactoryStub
 {
+    public static async Task<HttpClientDecorator> GetHttpDecorator(DisneyCharacters responseData)
+    {
+        var httpResponseContent = await JsonSerialization.SerializeAsync(responseData);
+        return new HttpClientDecorator(GetHttpClientFactory(httpResponseContent));
+    }
+
     public static IHttpClientFactory GetHttpClientFactory(string httpResponseContent)
     {
         var clientHandlerStub = new DelegatingHandlerStub();

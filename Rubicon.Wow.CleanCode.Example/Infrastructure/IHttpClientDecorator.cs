@@ -1,4 +1,4 @@
-﻿namespace Rubicon.Wow.CleanCode.Example;
+﻿namespace Rubicon.Wow.CleanCode.Example.Infrastructure;
 
 public interface IHttpClientDecorator
 {

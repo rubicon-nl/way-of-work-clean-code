@@ -1,8 +1,7 @@
-﻿
-using GenericHostConsoleApp;
+﻿using GenericHostConsoleApp.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Rubicon.Wow.CleanCode.Example;
+using Rubicon.Wow.CleanCode.Example.Middleware;
 
 var builder = Host.CreateDefaultBuilder(args);
 
@@ -23,7 +22,7 @@ builder.ConfigureServices((hostBuilder, services) =>
 builder.ConfigureLogging((context, b) =>
  {
      b.AddConsole();
-});
+ });
 
 var host = builder.Build();
 

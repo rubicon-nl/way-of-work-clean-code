@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using Rubicon.Wow.CleanCode.Example;
+using Rubicon.Wow.CleanCode.Example.Infrastructure;
 
-namespace GenericHostConsoleApp;
+namespace GenericHostConsoleApp.Infrastructure;
 
 internal sealed class ConsoleHostedService : IHostedService
 {
