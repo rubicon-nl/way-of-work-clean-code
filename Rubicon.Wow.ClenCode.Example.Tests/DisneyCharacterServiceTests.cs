@@ -1,7 +1,6 @@
 ﻿using Moq;
 using Rubicon.Wow.CleanCode.Data;
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
@@ -37,9 +36,9 @@ public class DisneyCharacterServiceTests
     }
 
     [Fact]
-    public async Task FetchCharacters_ShouldRetrieveCharacters()
+    public async Task FetchCharacters_ShouldRetrieveCharacters_AndReturnAListOfCharacters()
     {
-        // arrange
+        // Arrange
         HttpClientDecorator httpClientDecorator = new HttpClientDecorator(GetHttpClientFactory());
         DisneyCharacterService service = new DisneyCharacterService(httpClientDecorator, _outputWriter);
 
@@ -47,31 +46,30 @@ public class DisneyCharacterServiceTests
         const string imageUrl = "https://static.wikia.nocookie.net/disney/images/5/51/Screenshot_2016-09-12_at_8.13.42_PM.png";
         const string url = "https://api.disneyapi.dev/characters/133";
         string[] tvShows = new string[] { "The Replacements" };
-        DisneyCharacter expectedGordon = new(null, null, tvShows.ToList(), null, null, null, null, name, imageUrl, url) { Id = 133};
+        DisneyCharacter expectedGordon = new(null!, null!, tvShows, null!, null!, null!, null!, name, imageUrl, url) { Id = 133};
         
-        // act
+        // Act
         bool resultOfService = await service.FetchCharactersAsync();
 
         // Assert
         Assert.True(resultOfService);
-        Assert.Contains(service.DisneyCharacters, dchar => dchar == expectedGordon);
+        Assert.Contains(service.DisneyCharacters, dchar => dchar.Id == expectedGordon.Id);
     }
 
     [Fact]
-    public void GetMostFavoriteAllies_ShouldReturnData()
+    public void GetMostFavoriteAllies_WithFiveItems_ShouldReturnData()
+    {
+        //TODO:        
+    }
+
+    [Fact]
+    public void GetTopDisneyCharacters_WithTwoMostMovieAppeances_ShouldReturnTwoCharacters()
     {
         //TODO:
-
     }
 
     [Fact]
-    public void GetTopDisneyCharactersWithMostMovieAppeances()
-    {
-        //TODO:
-    }
-
-    [Fact]
-    public void GetTopDisneyCharactersWithMostVideoGameAppeances()
+    public void GetTopDisneyCharacters_WithTwoMostVideoGameAppeances_ShouldReturnTwoCharacters()
     {
         //TODO:
     }

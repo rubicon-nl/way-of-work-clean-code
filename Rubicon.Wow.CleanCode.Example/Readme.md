@@ -17,10 +17,18 @@
 
 ----
 Test
+8
+
+:) Naamgeving unittest is aangepast
+ -> ExecuteAsync_ShouldCallProcessingFunctions_AndReturnsTrue(
+:) Gebruik van mocks gemaakt
+:) Opbouw Test aangepast
+
 -> Unittest is alleen testen van een class
--> Alleen getest dat ik true terug krijg
--> Naamgeving unittest
--> Setup => onafhankelijk voor andere testen?
--> Veel te veel test data en moeilijk aan te passen aan nieuwe sitauties
--> Geen goede opbouw test
+-> Alleen getest dat ik true terug krijg. Nu iets beter, want we testen 1 resultaat naam.
+-> Setup/Arrange => onafhankelijk/Isolated test voor andere testen? (HttpClient, HttpClientFactory, DisneyService). 
+-> Test bevat teveel verantwoordleijkheden
+-> Veel te veel test data en moeilijk aan te passen aan nieuwe situaties
+
+-> Test geeft aan dat het goed gaat, maar test in feite alleen maar dat er geen unhandled exceptie optreden
 -> enz..
