@@ -63,12 +63,12 @@ public class DisneyCharacterService : IDisneyCharacterService
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostMovieAppeances(int count)
     {
         // find top 5 disney characters with most movie appearances
-        var t5cma = _cumulatedCharacters.OrderByDescending(x => x.Films.ToList().Count).Take(count);
+        var t5cma = _cumulatedCharacters.OrderByDescending(x => x.Films.Count).Take(count);
         int i = 1;
 
         foreach (var item in t5cma)
         {
-            _outputWriter.WriteLine($"{i}. {item.Name} ({item.Films.Count})");
+            _outputWriter.WriteLine($"{i}. {item.Name} ({item.Films.ToList().Count})");
             i++;
         }
 
@@ -79,7 +79,7 @@ public class DisneyCharacterService : IDisneyCharacterService
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostVideoGameAppeances(int count)
     {
         // find top 5 disney characters with most video game appearances
-        var t5cga = _cumulatedCharacters.OrderByDescending(x => x.VideoGames.ToList().Count).Take(count);
+        var t5cga = _cumulatedCharacters.OrderByDescending(x => x.VideoGames.Count).Take(count);
         int i = 1;
 
         foreach (var item in t5cga)
