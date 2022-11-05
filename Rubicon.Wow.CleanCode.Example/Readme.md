@@ -29,11 +29,11 @@ Test support
 :) Unittest is alleen testen van een class
 :) Veel te veel test data en moeilijk aan te passen aan nieuwe situaties -> zie character builder en gebruik
 :) Setup/Arrange => onafhankelijk/Isolated test voor andere testen? (HttpClient, HttpClientFactory, DisneyService). 
-
-TODO: responsibilty aanpassen service door ophalen en  uitvoeren data te scheiden.
+:) responsibilty aanpassen service door ophalen en uitvoeren data te scheiden.
 
 :( Test lang niet of alles is goed gegaan
-:( Test ziet dat er is mis is met de service: laden en uitvoeren. Zijn dat niet twee taken?
+Moeten we niet FluentAssertions of een ander assertion library gebruiken om alles goed door te testen?
+En moeten we niet verifieren wat welke mock functies geraakt worden en of ze wel geraakt worden?
 
 -> Test bevat teveel verantwoordelijkheden
 -> enz..
