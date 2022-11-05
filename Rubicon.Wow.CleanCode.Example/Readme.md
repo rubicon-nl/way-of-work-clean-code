@@ -31,9 +31,7 @@ Test support
 :) Setup/Arrange => onafhankelijk/Isolated test voor andere testen? (HttpClient, HttpClientFactory, DisneyService). 
 :) responsibilty aanpassen service door ophalen en uitvoeren data te scheiden.
 
+Mock Strict and Fluent Assertions
 :( Test lang niet of alles is goed gegaan
-Moeten we niet FluentAssertions of een ander assertion library gebruiken om alles goed door te testen?
-En moeten we niet verifieren wat welke mock functies geraakt worden en of ze wel geraakt worden?
-
--> Test bevat teveel verantwoordelijkheden
--> enz..
+:( Mock calls and setups verified
+:( Collections compared with fluent assertions
