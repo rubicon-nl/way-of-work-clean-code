@@ -1,8 +1,7 @@
-﻿
-using GenericHostConsoleApp;
+﻿using GenericHostConsoleApp.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Rubicon.Wow.CleanCode.Example;
+using Rubicon.Wow.CleanCode.Example.Middleware;
 
 var builder = Host.CreateDefaultBuilder(args);
 

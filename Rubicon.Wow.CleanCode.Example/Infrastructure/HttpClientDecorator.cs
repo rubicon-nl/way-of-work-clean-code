@@ -1,6 +1,5 @@
-﻿using Microsoft.Net.Http.Headers;
+﻿namespace Rubicon.Wow.CleanCode.Example.Infrastructure;
 
-namespace Rubicon.Wow.CleanCode.Example;
 public class HttpClientDecorator : IDisposable, IHttpClientDecorator
 {
     private readonly IHttpClientFactory _httpClientFactory;

@@ -1,4 +1,6 @@
-﻿public class JsonSerialization
+﻿namespace Rubicon.Wow.CleanCode.Example.Infrastructure;
+
+public class JsonSerialization
 {
     private static JsonSerializerOptions _options = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true };
 
