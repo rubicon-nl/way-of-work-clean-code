@@ -58,7 +58,19 @@ Dieder
 
     4. Interfaces maken voor de Services en Repositories en injecten (je wilt niet overal nieuwe objecten maken, maar 1x maken en hergebruiken.)
     5. ConfigureServices aanvullen met singletons
-    6. 
+3. Patterns and practices
+    1. Error handling
+        1. Url veranderen naar iets niets-bestaand zorgt ervoor dat de applicatie zonder duidelijke melding klapt.
+        2. `httpResponse.EnsureSuccessStatusCode()` toevoegen en try-catch met error loggen naar console.
+    2. Guard pattern
+        1. Try-catch verkleinen
+        2. IsSuccessStatusCode opruimen
+        3. if httpResponse.Content omdraaien
+        4. JsonException opruimen
+        5. ArgumentNullException op characters.
+        6. Aparte methode voor ophalen page.
+    3. Naming & comments
+        1. 
 
 
 3

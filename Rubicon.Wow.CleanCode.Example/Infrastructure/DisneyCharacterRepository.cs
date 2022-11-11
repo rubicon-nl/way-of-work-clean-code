@@ -4,46 +4,27 @@ namespace Rubicon.Wow.CleanCode.Example.Infrastructure;
 
 public class DisneyCharacterRepository : IDisneyCharacterRepository
 {
+    private readonly HttpClient client;
+
+    public DisneyCharacterRepository()
+    {
+        client = new HttpClient();
+    }
+
     public async Task<List<DisneyCharacter>> GetDisneyCharacters()
     {
-        var page = 1;
-        var totalPages = 1;
+        int page = 1;
+        int totalPages;
 
-        HttpClient client = new HttpClient();
         var cumulatedCharacters = new List<DisneyCharacter>();
 
         // Retrieve all disney characters
         do
         {
-            Console.WriteLine($"Retrieving page {page}");
-            var httpResponse = await client.GetAsync($"https://api.disneyapi.dev/characters?page={page}");
+            DisneyCharacters characters = await RetrievePage(page);
 
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                if (httpResponse.Content is object && httpResponse.Content.Headers.ContentType.MediaType == "application/json")
-                {
-                    var contentStream = await httpResponse.Content.ReadAsStreamAsync();
-
-                    try
-                    {
-                        var characters = await JsonSerializer.DeserializeAsync<DisneyCharacters>(contentStream);
-                        cumulatedCharacters.AddRange(characters.data);
-                        totalPages = characters.totalPages;
-                    }
-                    catch (JsonException)
-                    {
-                        Console.WriteLine("Invalid JSON.");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("HTTP Response was invalid and cannot be deserialised.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("HTTP Response error");
-            }
+            cumulatedCharacters.AddRange(characters.data);
+            totalPages = characters.totalPages;
 
             page++;
         } while (page <= totalPages);
@@ -51,4 +32,23 @@ public class DisneyCharacterRepository : IDisneyCharacterRepository
         return cumulatedCharacters;
     }
 
+    private async Task<DisneyCharacters> RetrievePage(int page)
+    {
+        Console.WriteLine($"Retrieving page {page}");
+        var httpResponse = await client.GetAsync($"https://api.disneyapi.dev/characters?page={page}");
+
+        httpResponse.EnsureSuccessStatusCode();
+
+        if (httpResponse.Content is null || httpResponse.Content.Headers.ContentType.MediaType != "application/json")
+        {
+            throw new Exception("HTTP Response was invalid and cannot be deserialised.");
+        }
+
+        var contentStream = await httpResponse.Content.ReadAsStreamAsync();
+
+        var characters = await JsonSerializer.DeserializeAsync<DisneyCharacters>(contentStream);
+
+        ArgumentNullException.ThrowIfNull(characters);
+        return characters;
+    }
 }
