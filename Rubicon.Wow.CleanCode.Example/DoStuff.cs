@@ -5,23 +5,25 @@ namespace Rubicon.Wow.CleanCode.Example;
 internal class DoStuff : BackgroundService
 {
     private readonly IDisneyCharacterService disneyCharacterService;
+    private readonly ILogger<DoStuff> logger;
 
-    public DoStuff(IDisneyCharacterService disneyCharacterService)
+    public DoStuff(IDisneyCharacterService disneyCharacterService, ILogger<DoStuff> logger)
     {
         this.disneyCharacterService = disneyCharacterService;
+        this.logger = logger;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        Console.WriteLine("Top 5 character movie appearances");
+        logger.LogInformation("Top 5 character movie appearances");
 
         await disneyCharacterService.TopMovieAppearances(5);
 
-        Console.WriteLine("Top 5 character game appearances");
+        logger.LogInformation("Top 5 character game appearances");
 
         await disneyCharacterService.TopGameAppearances(5);
 
-        Console.WriteLine("Create superhero squad of most favored allies");
+        logger.LogInformation("Create superhero squad of most favored allies");
 
         await disneyCharacterService.CreateSuperHeroSquad(4);
     }

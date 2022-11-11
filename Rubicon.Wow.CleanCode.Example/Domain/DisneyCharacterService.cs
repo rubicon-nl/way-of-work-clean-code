@@ -3,10 +3,12 @@
 public class DisneyCharacterService : IDisneyCharacterService
 {
     private readonly List<DisneyCharacter> disneyCharacters;
+    private readonly ILogger<DisneyCharacterService> logger;
 
-    public DisneyCharacterService(IDisneyCharacterRepository disneyCharacterRepository)
+    public DisneyCharacterService(IDisneyCharacterRepository disneyCharacterRepository, ILogger<DisneyCharacterService> logger)
     {
         this.disneyCharacters = disneyCharacterRepository.GetDisneyCharacters().Result;
+        this.logger = logger;
     }
 
     public async Task TopMovieAppearances(int amount)
@@ -16,7 +18,7 @@ public class DisneyCharacterService : IDisneyCharacterService
 
         foreach (var character in topCharacerMovieAppearances)
         {
-            Console.WriteLine($"{i}. {character.name} ({character.films.Count})");
+            logger.LogInformation($"{i}. {character.name} ({character.films.Count})");
             i++;
         }
     }
@@ -28,7 +30,7 @@ public class DisneyCharacterService : IDisneyCharacterService
 
         foreach (var character in topCharacerGameAppearances)
         {
-            Console.WriteLine($"{i}. {character.name} ({character.videoGames.Count})");
+            logger.LogInformation($"{i}. {character.name} ({character.videoGames.Count})");
             i++;
         }
 
@@ -48,7 +50,7 @@ public class DisneyCharacterService : IDisneyCharacterService
         {
             foreach (var item in mostFavoredAllies)
             {
-                Console.WriteLine($"{item}");
+                logger.LogInformation($"{item}");
             }
         }
     }

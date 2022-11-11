@@ -5,10 +5,12 @@ namespace Rubicon.Wow.CleanCode.Example.Infrastructure;
 public class DisneyCharacterRepository : IDisneyCharacterRepository
 {
     private readonly HttpClient client;
+    private readonly ILogger<DisneyCharacterRepository> logger;
 
-    public DisneyCharacterRepository()
+    public DisneyCharacterRepository(ILogger<DisneyCharacterRepository> logger)
     {
         client = new HttpClient();
+        this.logger = logger;
     }
 
     public async Task<List<DisneyCharacter>> GetDisneyCharacters()
@@ -18,7 +20,6 @@ public class DisneyCharacterRepository : IDisneyCharacterRepository
 
         var cumulatedCharacters = new List<DisneyCharacter>();
 
-        // Retrieve all disney characters
         do
         {
             DisneyCharacters characters = await RetrievePage(page);
@@ -34,7 +35,7 @@ public class DisneyCharacterRepository : IDisneyCharacterRepository
 
     private async Task<DisneyCharacters> RetrievePage(int page)
     {
-        Console.WriteLine($"Retrieving page {page}");
+        logger.LogTrace($"Retrieving page {page}");
         var httpResponse = await client.GetAsync($"https://api.disneyapi.dev/characters?page={page}");
 
         httpResponse.EnsureSuccessStatusCode();

@@ -11,10 +11,10 @@
 Rene
 --------------
 
-4 Polly
-5 Presenter
-6 Logging
-7 Fluent Validation
+4. Logging
+5. Polly
+6. Presenter
+7. Fluent Validation
 
 Dieder
 --------------
@@ -66,3 +66,39 @@ Dieder
     3. Naming & comments
         1. t5cma naamgeving naar topCharacterMovieAppearances
         2. Comments kloppen niet. Ook niet nodig. Weghalen.
+
+## Script Rene
+
+4. Logging (ontkoppelen van console en gebruik maken van andere logging providers)
+    1. Voeg `ILogger<DoStuff> logger` toe aan DoStuff.cs (using Microsoft.Extensions.Logging)
+    2. Console.WriteLine naar logger.LogInformation
+    3. Laten zien dat dit direct werkt (zonder loggingproviders etc.)
+    4. Console.WriteLines in DisneyCharacterService.cs omzetten naar logInformation's
+    5. Console.WriteLine in de repository omzetten naar *logTrace* en laten zien dat de output niet meer in de console komt.
+    6. Voeg appsettings.json toe en zet de CopyToOutputDirectory daarvan op Always
+
+    ```json
+    {
+    "ServiceBus": {
+        "Namespace": "sb-scanplan-tst",
+        "Queue": "geoslam"
+    },
+    "ApplicationinsightsConnectionString": "",
+    "Logging": {
+        "LogLevel": {
+        "Default": "Trace",
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information"
+        }
+    }
+    }
+    ```
+
+    7. Start app nogmaals en laat zien dat Trace nu wel getoond wordt.
+    8. Voeg nuget package `microsoft.extensions.logging.applicationinsights` toe aan project
+    9. Voeg volgende snippet toe voor `.ConfigureServices` in Program.cs.
+    _JP:Let op, hier hoort nog een configuratie bij in de appsettings.json, nog geen tijd gehad om dit te testen_
+
+    ```c#
+    .ConfigureLogging(builder => builder.AddApplicationInsights())
+    ```
