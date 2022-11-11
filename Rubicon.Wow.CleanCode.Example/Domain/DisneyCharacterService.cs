@@ -30,8 +30,23 @@ public class DisneyCharacterService
 
     }
 
-    internal Task CreateSuperHeroSquad(List<DisneyCharacter> cumulatedCharacters, int v)
+    public async Task CreateSuperHeroSquad(List<DisneyCharacter> cumulatedCharacters, int amount)
     {
-        throw new NotImplementedException();
+        // create a superhero squad of most favored allies
+        var mostFavoredAllies = cumulatedCharacters
+            .SelectMany(x => x.allies)
+            .GroupBy(x => x)
+            .Select(g => new { Name = g.Key, Count = g.Count() })
+            .OrderByDescending(x => x.Count)
+            .Select(x => x.Name)
+            .Take(amount);
+
+        if (mostFavoredAllies != null)
+        {
+            foreach (var item in mostFavoredAllies)
+            {
+                Console.WriteLine($"{item}");
+            }
+        }
     }
 }
