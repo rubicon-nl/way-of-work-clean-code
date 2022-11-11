@@ -1,18 +1,12 @@
 ﻿Jeffrey
 --------------
 
-1. Seperation of concerns: Structure program into classes
-1b. Data in eigen project
-
-2. Dependency Injection
-2.B Self hosting
-2.C Interfaces maken
-
-3
-3A HTTP error (change url to non-existing url) causes hanging in a while loop. Introduce error throwing.
-3B Guard pattern, reduce nested loops and ifs.
-3C Variable naming: t5cma -> top5CharacterMovieAppearances
-3D Comments lie -> // find top 5 disney characters with most movie appearances
+1. Seperation of concerns (modulair maken, opbreken problemen, beheerbaarheid op lange termijn)
+2. Dependency Injection (ontkoppeling van elkaar)
+3. Patterns and practices
+    1. Error handling
+    2. Guard pattern
+    3. Naming & comments
 
 Rene
 --------------
@@ -70,11 +64,5 @@ Dieder
         5. ArgumentNullException op characters.
         6. Aparte methode voor ophalen page.
     3. Naming & comments
-        1. 
-
-
-3
-3A HTTP error (change url to non-existing url) causes hanging in a while loop. Introduce error throwing.
-3B Guard pattern, reduce nested loops and ifs.
-3C Variable naming: t5cma -> top5CharacterMovieAppearances
-3D Comments lie -> // find top 5 disney characters with most movie appearances
+        1. t5cma naamgeving naar topCharacterMovieAppearances
+        2. Comments kloppen niet. Ook niet nodig. Weghalen.
