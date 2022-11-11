@@ -1,5 +1,4 @@
-﻿namespace Rubicon.Wow.CleanCode.Example;
-
+﻿namespace Rubicon.Wow.CleanCode.Data;
 public class DisneyCharacter
 {
     public List<string> films { get; set; }
@@ -13,12 +12,4 @@ public class DisneyCharacter
     public string name { get; set; }
     public string imageUrl { get; set; }
     public string url { get; set; }
-}
-
-public class DisneyCharacters
-{
-    public List<DisneyCharacter> data { get; set; }
-    public int count { get; set; }
-    public int totalPages { get; set; }
-    public string nextPage { get; set; }
 }

@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Rubicon.Wow.CleanCode.Data\Rubicon.Wow.CleanCode.Data.csproj" />
+  </ItemGroup>
+
 </Project>

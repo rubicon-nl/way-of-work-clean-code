@@ -1,7 +1,6 @@
-﻿##Script
-
-Jeffrey
+﻿Jeffrey
 --------------
+
 1. Seperation of concerns: Structure program into classes
 1b. Data in eigen project
 
@@ -9,7 +8,7 @@ Jeffrey
 2.B Self hosting
 2.C Interfaces maken
 
-/* TODO */
+/*TODO*/
 3
 3A HTTP error (change url to non-existing url) causes hanging in a while loop. Introduce error throwing.
 3B Guard pattern, reduce nested loops and ifs.
@@ -18,6 +17,7 @@ Jeffrey
 
 Rene
 --------------
+
 4 Polly
 5 Presenter
 6 Logging
@@ -25,12 +25,10 @@ Rene
 
 Dieder
 --------------
+
 8. Unit testen
 8b. Repository pattern
 8c. Fluent Assertions
-
-
-
 
 -> Data in eigen project. Voorkeur dat Enitities met records worden gedeinieerd omdat deze immutable zijn.
 -> Serialisation class gemaakt die verantwoordlijk is voor goede serializatie. Zorgt er voor dat camelcasing json goed geimporteerd wordt.
@@ -39,3 +37,12 @@ Dieder
 -> http client to factory pattern en decorator voor disposable interface
 -> Disney service via interface
 -> envtueel logging
+
+## Script Jeffrey
+
+1. Seperation of concerns (modulair maken, opbreken problemen, beheerbaarheid op lange termijn)
+    1. Data project maken en DisneyCharacter.cs maken en code verplaatsen.
+    2. Domain folder maken en DisneyCharacterService.cs maken en code verplaatsen.
+    3. Infrastructure folder maken en DisneyCharacterRepository.cs maken en code verplaatsen.
+    4. 
+
