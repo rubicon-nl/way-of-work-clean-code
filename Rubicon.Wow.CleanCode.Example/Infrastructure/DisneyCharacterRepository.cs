@@ -1,6 +1,8 @@
-﻿namespace Rubicon.Wow.CleanCode.Example.Infrastructure;
+﻿using Rubicon.Wow.CleanCode.Example.Domain;
 
-public class DisneyCharacterRepository
+namespace Rubicon.Wow.CleanCode.Example.Infrastructure;
+
+public class DisneyCharacterRepository : IDisneyCharacterRepository
 {
     public async Task<List<DisneyCharacter>> GetDisneyCharacters()
     {

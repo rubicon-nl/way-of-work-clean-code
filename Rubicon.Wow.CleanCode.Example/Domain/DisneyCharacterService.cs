@@ -1,11 +1,18 @@
 ﻿namespace Rubicon.Wow.CleanCode.Example.Domain;
 
-public class DisneyCharacterService
+public class DisneyCharacterService : IDisneyCharacterService
 {
-    public async Task TopMovieAppearances(List<DisneyCharacter> cumulatedCharacters, int amount)
+    private readonly List<DisneyCharacter> disneyCharacters;
+
+    public DisneyCharacterService(IDisneyCharacterRepository disneyCharacterRepository)
+    {
+        this.disneyCharacters = disneyCharacterRepository.GetDisneyCharacters().Result;
+    }
+
+    public async Task TopMovieAppearances(int amount)
     {
         // find top 5 disney characters with most movie appearances
-        var t5cma = cumulatedCharacters.OrderByDescending(x => x.films.Count).Take(amount);
+        var t5cma = disneyCharacters.OrderByDescending(x => x.films.Count).Take(amount);
         int i = 1;
 
         foreach (var item in t5cma)
@@ -15,10 +22,10 @@ public class DisneyCharacterService
         }
     }
 
-    public async Task TopGameAppearances(List<DisneyCharacter> cumulatedCharacters, int amount)
+    public async Task TopGameAppearances(int amount)
     {
         // find top 5 disney characters with most movie appearances
-        var t5cga = cumulatedCharacters.OrderByDescending(x => x.videoGames.Count).Take(amount);
+        var t5cga = disneyCharacters.OrderByDescending(x => x.videoGames.Count).Take(amount);
         int i = 1;
 
         foreach (var item in t5cga)
@@ -30,10 +37,10 @@ public class DisneyCharacterService
 
     }
 
-    public async Task CreateSuperHeroSquad(List<DisneyCharacter> cumulatedCharacters, int amount)
+    public async Task CreateSuperHeroSquad(int amount)
     {
         // create a superhero squad of most favored allies
-        var mostFavoredAllies = cumulatedCharacters
+        var mostFavoredAllies = disneyCharacters
             .SelectMany(x => x.allies)
             .GroupBy(x => x)
             .Select(g => new { Name = g.Key, Count = g.Count() })

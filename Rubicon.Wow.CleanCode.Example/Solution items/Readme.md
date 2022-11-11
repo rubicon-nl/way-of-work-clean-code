@@ -8,7 +8,6 @@
 2.B Self hosting
 2.C Interfaces maken
 
-/*TODO*/
 3
 3A HTTP error (change url to non-existing url) causes hanging in a while loop. Introduce error throwing.
 3B Guard pattern, reduce nested loops and ifs.
@@ -44,5 +43,26 @@ Dieder
     1. Data project maken en DisneyCharacter.cs maken en code verplaatsen.
     2. Domain folder maken en DisneyCharacterService.cs maken en code verplaatsen.
     3. Infrastructure folder maken en DisneyCharacterRepository.cs maken en code verplaatsen.
-    4. 
+    4. Program.cs fatsoeneren
+2. Dependency Injection (ontkoppeling van elkaar)
+    1. DisneyCharacterRepository logica van program.cs verplaatsen naar de service constructor.
+    2. Maak DoStuff.cs en inherit BackgroundService
+    3. Voeg snippet toe aan program.cs
 
+    ```c#
+    Host.CreateDefaultBuilder(args)
+    .ConfigureServices((services) => services.AddHostedService<DoStuff>())
+    .Build()
+    .RunAsync();
+    ```
+
+    4. Interfaces maken voor de Services en Repositories en injecten (je wilt niet overal nieuwe objecten maken, maar 1x maken en hergebruiken.)
+    5. ConfigureServices aanvullen met singletons
+    6. 
+
+
+3
+3A HTTP error (change url to non-existing url) causes hanging in a while loop. Introduce error throwing.
+3B Guard pattern, reduce nested loops and ifs.
+3C Variable naming: t5cma -> top5CharacterMovieAppearances
+3D Comments lie -> // find top 5 disney characters with most movie appearances
