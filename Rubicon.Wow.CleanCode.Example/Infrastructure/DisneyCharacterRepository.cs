@@ -7,9 +7,9 @@ public class DisneyCharacterRepository : IDisneyCharacterRepository
     private readonly HttpClient client;
     private readonly ILogger<DisneyCharacterRepository> logger;
 
-    public DisneyCharacterRepository(ILogger<DisneyCharacterRepository> logger)
+    public DisneyCharacterRepository(ILogger<DisneyCharacterRepository> logger, HttpClient httpClient)
     {
-        client = new HttpClient();
+        this.client = httpClient;
         this.logger = logger;
     }
 
@@ -52,4 +52,6 @@ public class DisneyCharacterRepository : IDisneyCharacterRepository
         ArgumentNullException.ThrowIfNull(characters);
         return characters;
     }
+
+
 }

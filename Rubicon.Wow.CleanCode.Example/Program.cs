@@ -1,12 +1,30 @@
-﻿using Rubicon.Wow.CleanCode.Example;
+﻿using Polly;
+using Polly.Contrib.WaitAndRetry;
+using Polly.Extensions.Http;
+using Rubicon.Wow.CleanCode.Example;
 using Rubicon.Wow.CleanCode.Example.Domain;
 using Rubicon.Wow.CleanCode.Example.Infrastructure;
 
 Host.CreateDefaultBuilder(args)
-    .ConfigureServices((services) => {
+    .ConfigureServices((services) =>
+    {
+        services.AddHttpClient<IDisneyCharacterRepository, DisneyCharacterRepository>()
+                    .SetHandlerLifetime(TimeSpan.FromMinutes(5))  //Set lifetime to five minutes
+                    .AddPolicyHandler(GetRetryPolicy());
+
         services.AddSingleton<IDisneyCharacterRepository, DisneyCharacterRepository>();
         services.AddSingleton<IDisneyCharacterService, DisneyCharacterService>();
         services.AddHostedService<DoStuff>();
     })
     .Build()
     .RunAsync();
+
+IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+{
+    var delay = Backoff.DecorrelatedJitterBackoffV2(medianFirstRetryDelay: TimeSpan.FromSeconds(1), retryCount: 5);
+
+    return HttpPolicyExtensions
+        .HandleTransientHttpError()
+        .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+        .WaitAndRetryAsync(delay);
+}
