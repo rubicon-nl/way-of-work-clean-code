@@ -1,12 +1,23 @@
-﻿namespace Rubicon.Wow.CleanCode.Example.Domain;
+﻿using AutoMapper;
+using Rubicon.Wow.CleanCode.Example.UI;
+
+namespace Rubicon.Wow.CleanCode.Example.Domain;
 
 public class DisneyCharacterService : IDisneyCharacterService
 {
     private readonly List<DisneyCharacter> disneyCharacters;
     private readonly ILogger<DisneyCharacterService> logger;
+    private readonly IMapper mapper;
+    private readonly ICharacterPresenter presenter;
 
-    public DisneyCharacterService(IDisneyCharacterRepository disneyCharacterRepository, ILogger<DisneyCharacterService> logger)
+    public DisneyCharacterService(
+        IDisneyCharacterRepository disneyCharacterRepository,
+        ILogger<DisneyCharacterService> logger,
+        IMapper mapper,
+        ICharacterPresenter presenter)
     {
+        this.mapper = mapper;
+        this.presenter = presenter;
         this.disneyCharacters = disneyCharacterRepository.GetDisneyCharacters().Result;
         this.logger = logger;
     }
@@ -14,26 +25,21 @@ public class DisneyCharacterService : IDisneyCharacterService
     public async Task TopMovieAppearances(int amount)
     {
         var topCharacerMovieAppearances = disneyCharacters.OrderByDescending(x => x.films.Count).Take(amount);
-        int i = 1;
 
-        foreach (var character in topCharacerMovieAppearances)
-        {
-            logger.LogInformation($"{i}. {character.name} ({character.films.Count})");
-            i++;
-        }
+        // map to vm's
+        var characters = topCharacerMovieAppearances.Select(c => mapper.Map<DisneyCharacter, CharacterViewModel>(c));
+
+        await presenter.ShowTopMovieAppearances(characters);
     }
 
     public async Task TopGameAppearances(int amount)
     {
         var topCharacerGameAppearances = disneyCharacters.OrderByDescending(x => x.videoGames.Count).Take(amount);
-        int i = 1;
 
-        foreach (var character in topCharacerGameAppearances)
-        {
-            logger.LogInformation($"{i}. {character.name} ({character.videoGames.Count})");
-            i++;
-        }
+        // map to vm's
+        var characters = topCharacerGameAppearances.Select(c => mapper.Map<DisneyCharacter, CharacterViewModel>(c));
 
+        await presenter.ShowTopGameAppearances(characters);
     }
 
     public async Task CreateSuperHeroSquad(int amount)
@@ -46,12 +52,6 @@ public class DisneyCharacterService : IDisneyCharacterService
             .Select(x => x.Name)
             .Take(amount);
 
-        if (mostFavoredAllies != null)
-        {
-            foreach (var item in mostFavoredAllies)
-            {
-                logger.LogInformation($"{item}");
-            }
-        }
+        await presenter.ShowSuperHeroSquad(mostFavoredAllies);
     }
 }

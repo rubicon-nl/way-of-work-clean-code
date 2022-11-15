@@ -8,7 +8,7 @@ public class CharacterProfile : Profile
     {
         CreateMap<DisneyCharacter, CharacterViewModel>()
             .ForMember(x => x.Name, opt => opt.MapFrom(src => src.name))
-            .ForMember(x => x.FilmsCount, opt => opt.MapFrom(src => src.videoGames.Count))
+            .ForMember(x => x.FilmsCount, opt => opt.MapFrom(src => src.films.Count))
             .ForMember(x => x.VideogamesCount, opt => opt.MapFrom(src => src.videoGames.Count));
 
         CreateMap<CharacterViewModel, DisneyCharacter>();
