@@ -1,9 +1,12 @@
-﻿using Polly;
+﻿using System.Reflection;
+using AutoMapper;
+using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Extensions.Http;
 using Rubicon.Wow.CleanCode.Example;
 using Rubicon.Wow.CleanCode.Example.Domain;
 using Rubicon.Wow.CleanCode.Example.Infrastructure;
+using Rubicon.Wow.CleanCode.Example.UI;
 
 Host.CreateDefaultBuilder(args)
     .ConfigureServices((services) =>
@@ -15,6 +18,12 @@ Host.CreateDefaultBuilder(args)
         services.AddSingleton<IDisneyCharacterRepository, DisneyCharacterRepository>();
         services.AddSingleton<IDisneyCharacterService, DisneyCharacterService>();
         services.AddHostedService<DoStuff>();
+
+        // register automapper profiles.
+        services.AddAutoMapper(Assembly.GetAssembly(typeof(CharacterProfile)));
+
+        // register presenters
+        services.AddScoped<ICharacterPresenter, CharacterPresenter>();
     })
     .Build()
     .RunAsync();
