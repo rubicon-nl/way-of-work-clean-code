@@ -102,3 +102,33 @@ Dieder
     ```c#
     .ConfigureLogging(builder => builder.AddApplicationInsights())
     ```
+5.  Polly
+    1. Voeg Polly packages toe aan project
+        Microsoft.Extensions.Http.Polly
+        Polly.Contrib.WaitAndRetry
+
+    2.  Voeg code snippet toe services in Program.cs voor het registreren van een httpClient inclusief retry policy.
+    ```c#
+    services.AddHttpClient<IDisneyCharacterRepository, DisneyCharacterRepository>()
+                    .SetHandlerLifetime(TimeSpan.FromMinutes(5))
+                    .AddPolicyHandler(GetRetryPolicy());
+
+    IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+    {
+        var delay = Backoff.DecorrelatedJitterBackoffV2(medianFirstRetryDelay: TimeSpan.FromSeconds(1), retryCount: 5);
+
+        return HttpPolicyExtensions
+            .HandleTransientHttpError()
+            .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.NotFound)
+            .WaitAndRetryAsync(delay);
+    }
+    ```
+
+    3.  injecteer httpClient in constructor van repository voor het ophalen van de characters.
+    ```c#
+    public DisneyCharacterRepository(ILogger<DisneyCharacterRepository> logger, HttpClient httpClient)
+    {
+        this.client = httpClient;
+        this.logger = logger;
+    }
+    ```
