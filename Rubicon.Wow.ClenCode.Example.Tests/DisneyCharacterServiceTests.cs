@@ -43,7 +43,7 @@ public class DisneyCharacterServiceTests
 
     [Theory]
     [ClassData(typeof(CharacterGeneratorData))]
-    public void GetTopDisneyCharacters_WithTwoMostMovieAppeances_ShouldReturnTwoCharacters(params DisneyCharacter[] testData)
+    public void GetTopDisneyCharacters_WithTwoMostMovieAppeances_ShouldReturnTopTwoCharactersWithMostMovieCount(params DisneyCharacter[] testData)
     {
         // arrange
         _outputWriter.WriteLine(string.Join(",", testData.Select(f => f.Name)));
@@ -62,7 +62,7 @@ public class DisneyCharacterServiceTests
     [InlineData(1,1)]
     [InlineData(2,2)]
     [InlineData(3, 3)]
-    public void GetTopDisneyCharactersWithMostVideoGameAppeances_ShouldMatchCount(int exampleCount, int requestCount)
+    public void GetTopDisneyCharactersWithMostVideoGameAppeances_ShouldMatchRequestCount(int exampleCount, int requestCount)
     {
         // Arrange        
         var mickeyMouse = CharacterBuilder.Create(1, "Mickey Mouse")
