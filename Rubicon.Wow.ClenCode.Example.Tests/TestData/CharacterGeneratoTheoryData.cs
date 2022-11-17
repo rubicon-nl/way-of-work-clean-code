@@ -1,11 +1,10 @@
 ﻿using Rubicon.Wow.CleanCode.Data;
-using System.Collections.Generic;
 using Xunit;
 
 namespace Rubicon.Wow.CleanCode.Example.Tests.TestData;
-internal class CharacterGeneratorData : TheoryData<DisneyCharacter, DisneyCharacter, DisneyCharacter>
+internal class CharacterGeneratoTheoryData : TheoryData<DisneyCharacter, DisneyCharacter, DisneyCharacter>
 {
-    public CharacterGeneratorData()
+    public CharacterGeneratoTheoryData()
     {
         var mickey = CharacterBuilder.Create(1, "Mickey Mouse")
           .PlayedInMovies("Mickey Mouse", "THE THREE MUSKETEERS", "Fanatasia 200", "World of Illusion").Build();

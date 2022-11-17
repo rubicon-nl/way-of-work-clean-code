@@ -42,7 +42,7 @@ public class DisneyCharacterServiceTests
 
 
     [Theory]
-    [ClassData(typeof(CharacterGeneratorData))]
+    [ClassData(typeof(CharacterGeneratoTheoryData))]
     public void GetTopDisneyCharacters_WithTwoMostMovieAppeances_ShouldReturnTopTwoCharactersWithMostMovieCount(params DisneyCharacter[] testData)
     {
         // arrange
