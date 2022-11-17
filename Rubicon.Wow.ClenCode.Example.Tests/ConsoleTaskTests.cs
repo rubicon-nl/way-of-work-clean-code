@@ -43,6 +43,7 @@ public class ConsoleTaskTests
 
         // Assert        
         result.Should().BeTrue();
+        characterRepositoryMock.VerifyAll();
     }
 
     [Fact]

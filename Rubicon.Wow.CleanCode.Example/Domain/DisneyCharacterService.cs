@@ -15,26 +15,18 @@ public class DisneyCharacterService : IDisneyCharacterService
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostMovieAppeances(int count)
     {
         // find top 5 disney characters with most movie appearances
-        var t5cma = DisneyCharacters.OrderByDescending(x => x.Films.Count).Take(count);
-        int i = 1;
-
-        return t5cma;
-
+        return  DisneyCharacters.OrderByDescending(x => x.Films.Count).Take(count);        
     }
 
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostVideoGameAppeances(int count)
     {
         // find top 5 disney characters with most video game appearances
-        var t5cga = DisneyCharacters.OrderByDescending(x => x.VideoGames.Count).Take(count);
-        int i = 1;
-
-
-        return t5cga;
+        return DisneyCharacters.OrderByDescending(x => x.VideoGames.Count).Take(count);
+        
     }
 
     public IEnumerable<string>? GetMostFavoriteAllies(int count)
     {
-
         // create a superhero squad of most favored allies
         var mostFavoredAllies = DisneyCharacters
             .SelectMany(x => x.Allies)
@@ -43,12 +35,7 @@ public class DisneyCharacterService : IDisneyCharacterService
             .OrderByDescending(x => x.Count)
             .Select(x => x.Name)
             .Take(count);
-
-        if (mostFavoredAllies != null)
-        {
-
-        }
-
+     
         return mostFavoredAllies;
     }
 
