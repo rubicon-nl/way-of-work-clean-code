@@ -1,5 +1,6 @@
 using Moq;
 using Rubicon.Wow.CleanCode.Data;
+using Rubicon.Wow.CleanCode.Example.Core;
 using Rubicon.Wow.CleanCode.Example.Infrastructure;
 using System.Threading.Tasks;
 using Xunit;

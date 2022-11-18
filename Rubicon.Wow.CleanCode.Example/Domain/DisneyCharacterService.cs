@@ -5,31 +5,24 @@ namespace Rubicon.Wow.CleanCode.Example.Domain;
 
 public class DisneyCharacterService : IDisneyCharacterService
 {        
-    public ReadOnlyCollection<DisneyCharacter> DisneyCharacters { get; init; }
+    public IQueryable<DisneyCharacter> DisneyCharacters { get; init; }
 
-    public DisneyCharacterService(IEnumerable<DisneyCharacter> disneyCharacters)
+    public DisneyCharacterService(IQueryable<DisneyCharacter> disneyCharacters)
     {
-        DisneyCharacters = new ReadOnlyCollection<DisneyCharacter>(disneyCharacters.ToList());
+        DisneyCharacters = disneyCharacters;
     }
 
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostMovieAppeances(int count)
     {
         // find top 5 disney characters with most movie appearances
-        var t5cma = DisneyCharacters.OrderByDescending(x => x.Films.Count).Take(count);
-        int i = 1;
-
-        return t5cma;
-
+        return DisneyCharacters.OrderByDescending(x => x.Films.Count).Take(count);
+        
     }
 
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostVideoGameAppeances(int count)
     {
         // find top 5 disney characters with most video game appearances
-        var t5cga = DisneyCharacters.OrderByDescending(x => x.VideoGames.Count).Take(count);
-        int i = 1;
-
-        
-        return t5cga;
+        return DisneyCharacters.OrderByDescending(x => x.VideoGames.Count).Take(count);        
     }
 
     public IEnumerable<string>? GetMostFavoriteAllies(int count)
@@ -44,12 +37,7 @@ public class DisneyCharacterService : IDisneyCharacterService
             .Select(x => x.Name)
             .Take(count);
 
-        if (mostFavoredAllies != null)
-        {
-          
-        }
-
-        return mostFavoredAllies;
+            return mostFavoredAllies;
     }
 
 }

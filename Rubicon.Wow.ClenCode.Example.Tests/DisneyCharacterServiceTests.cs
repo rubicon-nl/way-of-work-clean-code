@@ -2,6 +2,7 @@
 using Rubicon.Wow.CleanCode.Data;
 using Rubicon.Wow.CleanCode.Example.Domain;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -22,7 +23,7 @@ public class DisneyCharacterServiceTests
             .PlayedInMovies("World of Illusion").Build();
 
         var retrievedChars = new DisneyCharacter[] { mickeyMouse, goofy, donaldDuck };
-        DisneyCharacterService service = new DisneyCharacterService(retrievedChars);
+        DisneyCharacterService service = new DisneyCharacterService(retrievedChars.AsQueryable());
 
         // Act
         var top2 = service.GetTopDisneyCharactersWithMostMovieAppeances(2);

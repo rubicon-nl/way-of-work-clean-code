@@ -1,6 +1,7 @@
 ﻿using Rubicon.Wow.CleanCode.Example.Domain;
+using Rubicon.Wow.CleanCode.Example.Infrastructure;
 
-namespace Rubicon.Wow.CleanCode.Example.Infrastructure;
+namespace Rubicon.Wow.CleanCode.Example.Core;
 
 public class ConsoleTask : IConsoleTask
 {
@@ -19,14 +20,14 @@ public class ConsoleTask : IConsoleTask
         var retrievedCharacters = await _disneyCharacterRepository.GetAsync();
         _outputWriter.WriteLine();
 
-        if (retrievedCharacters==null)
+        if (retrievedCharacters == null)
         {
             _outputWriter.WriteLine("No data retrieved");
             return false;
         }
 
-        IDisneyCharacterService disneyCharacterService = new DisneyCharacterService(retrievedCharacters.Data);        
-        
+        IDisneyCharacterService disneyCharacterService = new DisneyCharacterService(retrievedCharacters.Data!.AsQueryable());
+
         _outputWriter.WriteLine("Top 5 character movie appearances");
         disneyCharacterService.GetTopDisneyCharactersWithMostMovieAppeances(5);
         _outputWriter.WriteLine();

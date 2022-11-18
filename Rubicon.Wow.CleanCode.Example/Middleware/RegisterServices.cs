@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Net.Http.Headers;
+using Rubicon.Wow.CleanCode.Example.Core;
 using Rubicon.Wow.CleanCode.Example.Domain;
 using Rubicon.Wow.CleanCode.Example.Infrastructure;
 
