@@ -4,18 +4,19 @@ using System.Collections.ObjectModel;
 namespace Rubicon.Wow.CleanCode.Example.Domain;
 
 public class DisneyCharacterService : IDisneyCharacterService
-{
-    public ReadOnlyCollection<DisneyCharacter> DisneyCharacters { get; init; }
+{        
+    public IQueryable<DisneyCharacter> DisneyCharacters { get; init; }
 
-    public DisneyCharacterService(IEnumerable<DisneyCharacter> disneyCharacters)
+    public DisneyCharacterService(IQueryable<DisneyCharacter> disneyCharacters)
     {
-        DisneyCharacters = new ReadOnlyCollection<DisneyCharacter>(disneyCharacters.ToList());
+        DisneyCharacters = disneyCharacters;
     }
 
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostMovieAppeances(int count)
     {
         // find top 5 disney characters with most movie appearances
-        return  DisneyCharacters.OrderByDescending(x => x.Films.Count).Take(count);        
+        return DisneyCharacters.OrderByDescending(x => x.Films.Count).Take(count);
+        
     }
 
     public IEnumerable<DisneyCharacter> GetTopDisneyCharactersWithMostVideoGameAppeances(int count)

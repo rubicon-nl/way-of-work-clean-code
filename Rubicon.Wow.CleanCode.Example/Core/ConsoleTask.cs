@@ -1,6 +1,7 @@
 ﻿using Rubicon.Wow.CleanCode.Example.Domain;
+using Rubicon.Wow.CleanCode.Example.Infrastructure;
 
-namespace Rubicon.Wow.CleanCode.Example.Infrastructure;
+namespace Rubicon.Wow.CleanCode.Example.Core;
 
 public class ConsoleTask : IConsoleTask
 {
@@ -25,7 +26,7 @@ public class ConsoleTask : IConsoleTask
             return false;
         }
 
-        IDisneyCharacterService disneyCharacterService = new DisneyCharacterService(retrievedCharacters);
+        IDisneyCharacterService disneyCharacterService = new DisneyCharacterService(retrievedCharacters.Data!.AsQueryable());
 
         _outputWriter.WriteLine("Top 5 character movie appearances");
         disneyCharacterService.GetTopDisneyCharactersWithMostMovieAppeances(5);

@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Moq;
 using Rubicon.Wow.CleanCode.Data;
+using Rubicon.Wow.CleanCode.Example.Core;
 using Rubicon.Wow.CleanCode.Example.Infrastructure;
 using Rubicon.Wow.CleanCode.Example.Tests.TestData;
 using Rubicon.Wow.CleanCode.Example.Tests.TestSupport;
