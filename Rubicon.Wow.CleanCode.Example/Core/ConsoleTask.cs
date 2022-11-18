@@ -26,7 +26,7 @@ public class ConsoleTask : IConsoleTask
             return false;
         }
 
-        IDisneyCharacterService disneyCharacterService = new DisneyCharacterService(retrievedCharacters.Data!.AsQueryable());
+        IDisneyCharacterService disneyCharacterService = new DisneyCharacterService(retrievedCharacters.AsQueryable());
 
         _outputWriter.WriteLine("Top 5 character movie appearances");
         disneyCharacterService.GetTopDisneyCharactersWithMostMovieAppeances(5);

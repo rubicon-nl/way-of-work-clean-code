@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Rubicon.Wow.CleanCode.Example.Core;
 using Rubicon.Wow.CleanCode.Example.Infrastructure;
 
 namespace Rubicon.Wow.CleanCode.Example.Middleware;

@@ -14,9 +14,9 @@ internal class CharacterGeneratoTheoryData : TheoryData<DisneyCharacter, DisneyC
             .PlayedInMovies("World of Illusion").Build();
 
         Add(mickey, donald, goofy);
-     
+
         Add(donald, mickey, goofy);
-        
+
         Add(goofy, mickey, donald);
     }
 

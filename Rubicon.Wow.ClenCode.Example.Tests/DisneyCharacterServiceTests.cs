@@ -47,7 +47,7 @@ public class DisneyCharacterServiceTests
     {
         // arrange
         _outputWriter.WriteLine(string.Join(",", testData.Select(f => f.Name)));
-        DisneyCharacterService service = new DisneyCharacterService(testData);
+        DisneyCharacterService service = new DisneyCharacterService(testData.AsQueryable());
 
         // Act
         var top2 = service.GetTopDisneyCharactersWithMostMovieAppeances(2);
@@ -55,12 +55,12 @@ public class DisneyCharacterServiceTests
         // Assert
         top2.Should().HaveSameCount(testData.Where(f => f.Name != "Goofy"));
 
-        
+
     }
 
     [Theory]
-    [InlineData(1,1)]
-    [InlineData(2,2)]
+    [InlineData(1, 1)]
+    [InlineData(2, 2)]
     [InlineData(3, 3)]
     public void GetTopDisneyCharactersWithMostVideoGameAppeances_ShouldMatchRequestCount(int exampleCount, int requestCount)
     {
@@ -73,7 +73,7 @@ public class DisneyCharacterServiceTests
             .PlayedInMovies("World of Illusion").Build();
 
         var retrievedChars = new DisneyCharacter[] { mickeyMouse, goofy, donaldDuck }.Take(exampleCount);
-        DisneyCharacterService service = new DisneyCharacterService(retrievedChars);
+        DisneyCharacterService service = new DisneyCharacterService(retrievedChars.AsQueryable());
 
         // Act
         var top2 = service.GetTopDisneyCharactersWithMostVideoGameAppeances(requestCount);
@@ -82,7 +82,7 @@ public class DisneyCharacterServiceTests
         top2.Should().HaveSameCount(retrievedChars);
     }
 
-    
+
     [Fact]
     public void GetTopDisneyCharacters_WithTwoMostVideoGameAppeances_ShouldReturnTwoCharacters()
     {
