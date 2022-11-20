@@ -2,6 +2,7 @@
 
 namespace Rubicon.Wow.CleanCode.Example.Infrastructure;
 
+/// <inheritdoc/>
 public class DisneyCharacterRepository : IDisneyCharacterRepository
 {
     private readonly HttpClient client;
@@ -13,6 +14,7 @@ public class DisneyCharacterRepository : IDisneyCharacterRepository
         this.logger = logger;
     }
 
+    /// <inheritdoc/>
     public async Task<List<DisneyCharacter>> GetDisneyCharacters()
     {
         int page = 1;
@@ -33,6 +35,7 @@ public class DisneyCharacterRepository : IDisneyCharacterRepository
         return cumulatedCharacters;
     }
 
+    /// <inheritdoc/>
     private async Task<DisneyCharacters> RetrievePage(int page)
     {
         logger.LogTrace($"Retrieving page {page}");
@@ -52,6 +55,4 @@ public class DisneyCharacterRepository : IDisneyCharacterRepository
         ArgumentNullException.ThrowIfNull(characters);
         return characters;
     }
-
-
 }

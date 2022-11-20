@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Rubicon.Wow.CleanCode.Example.UI;
 
 namespace Rubicon.Wow.CleanCode.Example.Domain;
 
+/// <inheritdoc/>
 public class DisneyCharacterService : IDisneyCharacterService
 {
     private readonly List<DisneyCharacter> disneyCharacters;
@@ -22,26 +22,23 @@ public class DisneyCharacterService : IDisneyCharacterService
         this.logger = logger;
     }
 
+    /// <inheritdoc/>
     public async Task TopMovieAppearances(int amount)
     {
         var topCharacerMovieAppearances = disneyCharacters.OrderByDescending(x => x.films.Count).Take(amount);
 
-        // map to vm's
-        var characters = topCharacerMovieAppearances.Select(c => mapper.Map<DisneyCharacter, CharacterViewModel>(c));
-
-        await presenter.ShowTopMovieAppearances(characters);
+        await presenter.ShowTopMovieAppearances(topCharacerMovieAppearances);
     }
 
+    /// <inheritdoc/>
     public async Task TopGameAppearances(int amount)
     {
         var topCharacerGameAppearances = disneyCharacters.OrderByDescending(x => x.videoGames.Count).Take(amount);
 
-        // map to vm's
-        var characters = topCharacerGameAppearances.Select(c => mapper.Map<DisneyCharacter, CharacterViewModel>(c));
-
-        await presenter.ShowTopGameAppearances(characters);
+        await presenter.ShowTopGameAppearances(topCharacerGameAppearances);
     }
 
+    /// <inheritdoc/>
     public async Task CreateSuperHeroSquad(int amount)
     {
         var mostFavoredAllies = disneyCharacters
