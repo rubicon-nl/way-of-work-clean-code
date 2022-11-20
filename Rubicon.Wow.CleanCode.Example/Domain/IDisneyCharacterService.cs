@@ -25,5 +25,12 @@
         /// <param name="amount"></param>
         /// <returns></returns>
         Task TopMovieAppearances(int amount);
+
+        /// <summary>
+        /// Stores the given character.
+        /// </summary>
+        /// <param name="character"></param>
+        /// <returns></returns>
+        Task StoreCharacter(DisneyCharacter character);
     }
 }

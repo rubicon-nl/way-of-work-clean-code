@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using AutoMapper;
+using FluentValidation;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Extensions.Http;
@@ -24,6 +25,9 @@ Host.CreateDefaultBuilder(args)
 
         // register presenters
         services.AddScoped<ICharacterPresenter, CharacterPresenter>();
+
+        // register validators
+        services.AddScoped<IValidator<DisneyCharacter>, DisneyCharacterValidator>();
     })
     .Build()
     .RunAsync();

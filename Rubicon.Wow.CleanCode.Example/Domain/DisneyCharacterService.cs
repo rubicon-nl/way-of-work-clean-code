@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 
 namespace Rubicon.Wow.CleanCode.Example.Domain;
 
@@ -9,15 +10,18 @@ public class DisneyCharacterService : IDisneyCharacterService
     private readonly ILogger<DisneyCharacterService> logger;
     private readonly IMapper mapper;
     private readonly ICharacterPresenter presenter;
+    private readonly IValidator<DisneyCharacter> validator;
 
     public DisneyCharacterService(
         IDisneyCharacterRepository disneyCharacterRepository,
         ILogger<DisneyCharacterService> logger,
         IMapper mapper,
-        ICharacterPresenter presenter)
+        ICharacterPresenter presenter,
+        IValidator<DisneyCharacter> validator)
     {
         this.mapper = mapper;
         this.presenter = presenter;
+        this.validator = validator;
         this.disneyCharacters = disneyCharacterRepository.GetDisneyCharacters().Result;
         this.logger = logger;
     }
@@ -50,5 +54,21 @@ public class DisneyCharacterService : IDisneyCharacterService
             .Take(amount);
 
         await presenter.ShowSuperHeroSquad(mostFavoredAllies);
+    }
+
+    public Task StoreCharacter(DisneyCharacter character)
+    {
+        var validationResult = validator.Validate(character);
+        if (!validationResult.IsValid)
+        {
+            logger.LogError($"Validation error when store character, errors:");
+            foreach (var error in validationResult.Errors)
+            {
+                logger.LogError($"ErrorCode: {error.ErrorCode}, ErrorMessage: {error.ErrorMessage}");
+            }
+            return Task.CompletedTask;
+        }
+        logger.LogInformation("We can invoke repository to store character.");
+        return Task.CompletedTask;
     }
 }

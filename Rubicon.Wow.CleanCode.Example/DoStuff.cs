@@ -26,5 +26,11 @@ internal class DoStuff : BackgroundService
         logger.LogInformation("Create superhero squad of most favored allies");
 
         await disneyCharacterService.CreateSuperHeroSquad(4);
+
+        await disneyCharacterService.StoreCharacter(new DisneyCharacter()
+        {
+            name = "Bamiebal",
+            imageUrl = "someUrl"
+        });
     }
 }
