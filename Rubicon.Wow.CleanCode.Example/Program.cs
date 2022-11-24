@@ -12,7 +12,7 @@ var cumulatedCharacters = new List<DisneyCharacter>();
 do
 {
     Console.WriteLine($"Retrieving page {page}");
-    var httpResponse = client.GetAsync($"https://api.disneyapi.dev/characters?page={page}").Result;
+    var httpResponse = await client.GetAsync($"https://api.disneyapi.dev/characters?page={page}");
 
     if (httpResponse.IsSuccessStatusCode)
     {
@@ -20,15 +20,14 @@ do
         {
             var contentStream = await httpResponse.Content.ReadAsStreamAsync();
 
+            var characters = await JsonSerializer.DeserializeAsync<DisneyCharacters>(contentStream);
             try
             {
-                var characters = await JsonSerializer.DeserializeAsync<DisneyCharacters>(contentStream);
                 cumulatedCharacters.AddRange(characters.data);
                 totalPages = characters.totalPages;
-            }
-            catch (JsonException)
+            } catch (NullReferenceException)
             {
-                Console.WriteLine("Invalid JSON.");
+                Console.WriteLine("Characters is null");
             }
         }
         else
