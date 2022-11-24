@@ -12,7 +12,7 @@ var cumulatedCharacters = new List<DisneyCharacter>();
 do
 {
     Console.WriteLine($"Retrieving page {page}");
-    var httpResponse = await client.GetAsync($"https://api.disneyapi.dev/characters?page={page}");
+    var httpResponse = client.GetAsync($"https://api.disneyapi.dev/characters?page={page}").Result;
 
     if (httpResponse.IsSuccessStatusCode)
     {
