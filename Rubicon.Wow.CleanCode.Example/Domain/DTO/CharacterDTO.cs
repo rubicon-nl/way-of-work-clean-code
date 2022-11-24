@@ -1,6 +1,6 @@
-namespace Rubicon.Wow.CleanCode.Example.UI;
+namespace Rubicon.Wow.CleanCode.Example.Domain.DTO;
 
-public class CharacterViewModel
+public class CharacterDTO
 {
     public string? Name { get; set; }
     public int FilmsCount { get; set; }

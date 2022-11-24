@@ -1,3 +1,5 @@
+using Rubicon.Wow.CleanCode.Example.Domain.DTO;
+
 namespace Rubicon.Wow.CleanCode.Example.Domain
 {
     /// <summary>
@@ -10,14 +12,14 @@ namespace Rubicon.Wow.CleanCode.Example.Domain
         /// </summary>
         /// <param name="characters"></param>
         /// <returns></returns>
-        public Task ShowTopMovieAppearances(IEnumerable<DisneyCharacter> characters);
+        public Task ShowTopMovieAppearances(IEnumerable<CharacterDTO> characters);
 
         /// <summary>
         /// Presents Top Game Appearances.
         /// </summary>
         /// <param name="characters"></param>
         /// <returns></returns>
-        public Task ShowTopGameAppearances(IEnumerable<DisneyCharacter> characters);
+        public Task ShowTopGameAppearances(IEnumerable<CharacterDTO> characters);
 
         /// <summary>
         /// Presents  the super hero squad.

@@ -1,5 +1,6 @@
 using AutoMapper;
 using Rubicon.Wow.CleanCode.Example.Domain;
+using Rubicon.Wow.CleanCode.Example.Domain.DTO;
 
 namespace Rubicon.Wow.CleanCode.Example.UI;
 
@@ -15,14 +16,11 @@ public class CharacterPresenter : ICharacterPresenter
     }
 
     /// <inheritdoc/>
-    public Task ShowTopMovieAppearances(IEnumerable<DisneyCharacter> characters)
+    public Task ShowTopMovieAppearances(IEnumerable<CharacterDTO> characters)
     {
-        // map to vm's
-        var viewModels = characters.Select(c => mapper.Map<DisneyCharacter, CharacterViewModel>(c));
-
         int i = 1;
 
-        foreach (var character in viewModels)
+        foreach (var character in characters)
         {
             logger.LogInformation($"{i}. {character.Name} ({character.FilmsCount})");
             i++;
@@ -31,14 +29,11 @@ public class CharacterPresenter : ICharacterPresenter
     }
 
     /// <inheritdoc/>
-    public Task ShowTopGameAppearances(IEnumerable<DisneyCharacter> characters)
+    public Task ShowTopGameAppearances(IEnumerable<CharacterDTO> characters)
     {
-        // map to vm's
-        var viewModels = characters.Select(c => mapper.Map<DisneyCharacter, CharacterViewModel>(c));
-
         int i = 1;
 
-        foreach (var character in viewModels)
+        foreach (var character in characters)
         {
             logger.LogInformation($"{i}. {character.Name} ({character.VideogamesCount})");
             i++;

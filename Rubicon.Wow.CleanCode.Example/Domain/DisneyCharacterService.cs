@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Rubicon.Wow.CleanCode.Example.Domain.DTO;
 
 namespace Rubicon.Wow.CleanCode.Example.Domain;
 
@@ -27,15 +28,22 @@ public class DisneyCharacterService : IDisneyCharacterService
     {
         var topCharacerMovieAppearances = disneyCharacters.OrderByDescending(x => x.films.Count).Take(amount);
 
-        await presenter.ShowTopMovieAppearances(topCharacerMovieAppearances);
+        // map to dtos.
+        var dtos = topCharacerMovieAppearances.Select(c => mapper.Map<DisneyCharacter, CharacterDTO>(c));
+
+        await presenter.ShowTopMovieAppearances(dtos);
     }
 
     /// <inheritdoc/>
     public async Task TopGameAppearances(int amount)
     {
+
         var topCharacerGameAppearances = disneyCharacters.OrderByDescending(x => x.videoGames.Count).Take(amount);
 
-        await presenter.ShowTopGameAppearances(topCharacerGameAppearances);
+        // map to dtos.
+        var dtos = topCharacerGameAppearances.Select(c => mapper.Map<DisneyCharacter, CharacterDTO>(c));
+
+        await presenter.ShowTopGameAppearances(dtos);
     }
 
     /// <inheritdoc/>

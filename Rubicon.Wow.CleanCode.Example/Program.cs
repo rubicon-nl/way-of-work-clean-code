@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using AutoMapper;
 using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Extensions.Http;
 using Rubicon.Wow.CleanCode.Example;
 using Rubicon.Wow.CleanCode.Example.Domain;
+using Rubicon.Wow.CleanCode.Example.Domain.Mappings;
 using Rubicon.Wow.CleanCode.Example.Infrastructure;
 using Rubicon.Wow.CleanCode.Example.UI;
 
